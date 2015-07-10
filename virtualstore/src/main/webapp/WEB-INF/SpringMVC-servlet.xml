@@ -14,7 +14,7 @@
 
 
 	  <mvc:annotation-driven />
-      <context:component-scan base-package="edu.mum.controller" />
+      <context:component-scan base-package="edu.mum" />
       
       <!-- Lets us find resources (.html etc) through the default servlet -->
 		<mvc:default-servlet-handler/> 

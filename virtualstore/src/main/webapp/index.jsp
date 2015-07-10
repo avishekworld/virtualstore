@@ -9,6 +9,6 @@
 </head>
 <body>
 			
-	<h1>${user.username} Welcome to Virtual Store</h1>
+	<h1>Welcome to Virtual Store</h1>
 </body>
 </html>

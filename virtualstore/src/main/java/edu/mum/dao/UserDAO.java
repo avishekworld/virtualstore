@@ -25,6 +25,13 @@ public class UserDAO {
 		
 	}
 	
+	public User getSampleUser()
+	{
+		User u=new User("Avishek","mypass");
+		
+		return u;
+	}
+	
 	public void saveUser(User u)
 	{
 		sessionFactory.getCurrentSession().persist(u);

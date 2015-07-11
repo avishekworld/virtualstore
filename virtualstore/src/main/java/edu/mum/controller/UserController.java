@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import edu.mum.customer.domain.User;
 import edu.mum.dao.UserDAO;
-import edu.mum.domain.User;
 import edu.mum.service.UserService;
 
 @Controller
@@ -39,6 +39,13 @@ public class UserController {
     	userService.createUser(user);
     	
         return "login";
+    }
+    
+    @RequestMapping(value = "/home", method = RequestMethod.GET)
+    public String showHome(Model model) {
+    	
+    	
+        return "home";
     }
 
 

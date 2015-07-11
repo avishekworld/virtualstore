@@ -4,7 +4,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import edu.mum.domain.User;
+import edu.mum.customer.domain.User;
 
 @Transactional(propagation=Propagation.REQUIRED)
 public class UserDAO {

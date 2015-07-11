@@ -4,8 +4,8 @@ package edu.mum.service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import edu.mum.customer.domain.User;
 import edu.mum.dao.UserDAO;
-import edu.mum.domain.User;
 
 @Transactional(propagation=Propagation.REQUIRED)
 public class UserService {

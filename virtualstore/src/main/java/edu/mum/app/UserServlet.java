@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import edu.mum.domain.User;
+import edu.mum.customer.domain.User;
 import edu.mum.service.UserService;
 
 

@@ -17,6 +17,14 @@ public class UserService {
 		this.userDAO = userDAO;
 	}
 
+	
+
+
+	public UserDAO getUserDAO() {
+		return userDAO;
+	}
+
+
 
 
 	public void createUser(User u)

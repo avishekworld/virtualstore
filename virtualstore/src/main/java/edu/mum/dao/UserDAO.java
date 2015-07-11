@@ -27,7 +27,7 @@ public class UserDAO {
 	
 	public User getSampleUser()
 	{
-		User u=new User("Avishek","mypass");
+		User u=new User("man","mypass");
 		
 		return u;
 	}

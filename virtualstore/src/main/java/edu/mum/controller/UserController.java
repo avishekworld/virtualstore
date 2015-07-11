@@ -2,6 +2,7 @@ package edu.mum.controller;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -12,13 +13,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import edu.mum.dao.UserDAO;
 import edu.mum.domain.User;
+import edu.mum.service.UserService;
 
 @Controller
 //@RequestMapping(value="/books")
 public class UserController {
 
-    @Resource
-    private UserDAO userDAO;
+    @Autowired
+    private UserService userService;
 
     @RequestMapping("/")
     public String redirectRoot(Model model) {
@@ -30,9 +32,11 @@ public class UserController {
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public String getAll(Model model) {
     	
-    	model.addAttribute("user", userDAO.getSampleUser());
+    	User user=userService.getUserDAO().getSampleUser();
     	
-    	userDAO.saveUser(userDAO.getSampleUser());
+    	model.addAttribute("user", user);
+    	
+    	userService.createUser(user);
     	
         return "login";
     }

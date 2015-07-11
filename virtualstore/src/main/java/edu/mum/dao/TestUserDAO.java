@@ -1,14 +1,16 @@
 package edu.mum.dao;
 
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import edu.mum.customer.domain.User;
 
 @Transactional(propagation=Propagation.REQUIRED)
-public class UserDAO {
+public class TestUserDAO {
 	
+	@Autowired
 	private SessionFactory sessionFactory;
 
 	public void setSessionFactory(SessionFactory sessionFactory) {
@@ -27,7 +29,7 @@ public class UserDAO {
 	
 	public User getSampleUser()
 	{
-		User u=new User("man","mypass");
+		User u=new User("test","mypass");
 		
 		return u;
 	}

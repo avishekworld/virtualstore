@@ -12,15 +12,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.mum.customer.domain.User;
-import edu.mum.dao.UserDAO;
-import edu.mum.service.UserService;
+import edu.mum.dao.TestUserDAO;
+import edu.mum.service.TestUserService;
 
 @Controller
 //@RequestMapping(value="/books")
-public class UserController {
+public class TestUserController {
 
     @Autowired
-    private UserService userService;
+    private TestUserService testUserService;
 
     @RequestMapping("/")
     public String redirectRoot(Model model) {
@@ -32,11 +32,11 @@ public class UserController {
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public String getAll(Model model) {
     	
-    	User user=userService.getUserDAO().getSampleUser();
+    	User user=testUserService.getTestUserDAO().getSampleUser();
     	
     	model.addAttribute("user", user);
     	
-    	userService.createUser(user);
+    	testUserService.createUser(user);
     	
         return "login";
     }

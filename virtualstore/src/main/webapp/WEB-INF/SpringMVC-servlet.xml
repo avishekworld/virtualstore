@@ -12,9 +12,11 @@
 		http://www.springframework.org/schema/security/ http://www.springframework.org/schema/security/spring-security-4.0.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 
-
+	  
 	  <mvc:annotation-driven />
       <context:component-scan base-package="edu.mum" />
+      
+      
       
       <!-- Lets us find resources (.html etc) through the default servlet -->
 		<mvc:default-servlet-handler/> 

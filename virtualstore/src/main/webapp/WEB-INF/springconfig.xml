@@ -19,6 +19,8 @@
 		http://www.springframework.org/schema/security/ http://www.springframework.org/schema/security/spring-security-4.0.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
        
+      <context:annotation-config />	
+       
       <aop:config proxy-target-class="true"/>
   	
 	  <tx:annotation-driven transaction-manager="txManager" />
@@ -27,13 +29,12 @@
 	  		<property name="dataSource" ref="dataSource"/>
 	  </bean>
 
-	<bean id="userService" class="edu.mum.service.UserService">
-		<property name="userDAO" ref="userDAO" />
-	</bean>
+	<bean id="testUserService" class="edu.mum.service.TestUserService" />
+	<bean id="testUserDAO" class="edu.mum.dao.TestUserDAO" />
+
 	
-	<bean id="userDAO" class="edu.mum.dao.UserDAO" init-method="init">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
+	<bean id="userService" class="edu.mum.customer.service.UserService" />
+	<bean id="userDao" class="edu.mum.customer.dao.UserDao" />
 	
 	<!-- Hibernate SessionFactory -->
 	<bean id="sessionFactory"

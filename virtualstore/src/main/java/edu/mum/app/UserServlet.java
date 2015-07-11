@@ -12,7 +12,7 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import edu.mum.customer.domain.User;
-import edu.mum.service.UserService;
+import edu.mum.service.TestUserService;
 
 
 public class UserServlet extends HttpServlet {
@@ -23,8 +23,8 @@ public class UserServlet extends HttpServlet {
 		ServletContext context = getServletContext();
 	    WebApplicationContext applicationContext =
 	        WebApplicationContextUtils.getWebApplicationContext(context);
-	    UserService userService = applicationContext.getBean(
-	        "userService", UserService.class);
+	    TestUserService userService = applicationContext.getBean(
+	        "userService", TestUserService.class);
 	    
 	    User u=new User("Sir","secret");
 	    

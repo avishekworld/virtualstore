@@ -42,7 +42,8 @@ public class User {
 	private List<PaymentInfo> paymentInfos = new ArrayList<PaymentInfo>();
 
 
-	@OneToOne(mappedBy="user")
+	//@OneToOne(mappedBy="user",cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL)
 	@PrimaryKeyJoinColumn
 	private UserProfile userProfile;
 

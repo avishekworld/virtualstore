@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import edu.mum.customer.domain.User;
 import edu.mum.customer.domain.UserProfile;
 
-
+@Transactional(propagation=Propagation.REQUIRED)
 public class UserDao implements IUserDao {
 
 	@Autowired
@@ -19,8 +19,21 @@ public class UserDao implements IUserDao {
 	}
 
 	public void saveUser(User user, UserProfile userProfile) {
-		sessionFactory.getCurrentSession().persist(user);
+		
+		//User user2=new User("avishek", "password");
+		//sessionFactory.getCurrentSession().persist(user2);
+		
+		sessionFactory.getCurrentSession().save(user);
+		//sessionFactory.getCurrentSession().refresh(user);
+		userProfile.setId(user.getId());
+		//user.setUserProfile(userProfile);
+		//userProfile.setUser(user);
 		sessionFactory.getCurrentSession().persist(userProfile);
+		//sessionFactory.getCurrentSession().save(user);
+		
+		//User user2=new User("avishek", "password");
+		
+		//sessionFactory.getCurrentSession().persist(user2);
 		
 	}
 

@@ -38,6 +38,17 @@ public class Review {
 	@JoinColumn(name="USER_ID")
 	private User user;
 	
+	@Column(name="RATING")
+	private int rating;
+	
+	public int getRating() {
+		return rating;
+	}
+
+	public void setRating(int rating) {
+		this.rating = rating;
+	}
+
 	public Review() {
 		// TODO Auto-generated constructor stub
 	}

@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import edu.mum.customer.domain.PaymentInfo;
 import edu.mum.review.domain.Review;
 
 @Entity
@@ -39,7 +40,17 @@ public class Product {
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="product")
 	private List<Review> reviews = new ArrayList<Review>();
 	
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="product")
+	private List<ProductMedia> productMedias = new ArrayList<ProductMedia>();
 	
+	public List<ProductMedia> getProductMedias() {
+		return productMedias;
+	}
+
+	public void setProductMedias(List<ProductMedia> productMedias) {
+		this.productMedias = productMedias;
+	}
+
 	public List<Review> getReviews() {
 		return reviews;
 	}

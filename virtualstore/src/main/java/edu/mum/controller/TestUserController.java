@@ -22,12 +22,12 @@ public class TestUserController {
     @Autowired
     private TestUserService testUserService;
 
-    @RequestMapping("/")
-    public String redirectRoot(Model model) {
-    	
-    	
-        return "index";
-    }
+//    @RequestMapping("/")
+//    public String redirectRoot(Model model) {
+//    	
+//    	
+//        return "index";
+//    }
     
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public String getAll(Model model) {
@@ -41,12 +41,12 @@ public class TestUserController {
         return "login";
     }
     
-    @RequestMapping(value = "/home", method = RequestMethod.GET)
-    public String showHome(Model model) {
-    	
-    	
-        return "home";
-    }
+//    @RequestMapping(value = "/home", method = RequestMethod.GET)
+//    public String showHome(Model model) {
+//    	
+//    	
+//        return "home";
+//    }
 
 
     @ExceptionHandler(value = NoSuchResourceException.class)

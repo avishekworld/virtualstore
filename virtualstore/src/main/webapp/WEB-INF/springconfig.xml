@@ -36,6 +36,9 @@
 	<bean id="userService" class="edu.mum.customer.service.UserService" />
 	<bean id="userDao" class="edu.mum.customer.dao.UserDao" />
 	
+	<bean id="productService" class="edu.mum.product.service.ProductService" />
+	<bean id="productDao" class="edu.mum.product.dao.ProductDao" />
+	
 	<!-- Hibernate SessionFactory -->
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">

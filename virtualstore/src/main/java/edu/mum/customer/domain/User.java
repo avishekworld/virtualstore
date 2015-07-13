@@ -31,7 +31,6 @@ public class User {
 	
 	@Column(name="USERPASSWORD")
 	private String password;
-
 	
 	
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="user")

@@ -39,6 +39,9 @@
 	<bean id="productService" class="edu.mum.product.service.ProductService" />
 	<bean id="productDao" class="edu.mum.product.dao.ProductDao" />
 	
+	<bean id="adminService" class="edu.mum.admin.service.AdminService" />
+	<bean id="adminDao" class="edu.mum.admin.dao.AdminDao" />
+	
 	<!-- Hibernate SessionFactory -->
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
@@ -70,5 +73,18 @@
 		</property>
 	</bean>
   	
-	
+<!-- 			<sec:authentication-manager> -->
+<!-- 		  <sec:ldap-authentication-provider> -->
+<!-- 			<jdbc-user-service data-source-ref="dataSource" -->
+<!-- 			  users-by-username-query= -->
+<!-- 			    "select username,password, enabled from users where username=?" -->
+<!-- 			  authorities-by-username-query= -->
+<!-- 			    "select username, role from user_roles where username =?" /> -->
+<!--  users-by-username-query="SELECT user_name AS username, user_password AS password, enabled FROM user where user_name=?" -->
+<!-- authorities-by-username-query="SELECT user_name as username, R.name as authority FROM user U, roles R WHERE U.roles = R.Id AND user_name=?"/> -->
+<!-- 			    <sec:password-compare></sec:password-compare> -->
+			    
+<!-- 		  </sec:ldap-authentication-provider> -->
+<!-- 		</sec:authentication-manager> -->
+
 </beans>

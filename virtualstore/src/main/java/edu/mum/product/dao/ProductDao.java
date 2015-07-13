@@ -9,8 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.mysql.jdbc.Util;
+
+import edu.mum.admin.domain.Utilities;
 import edu.mum.product.domain.Catagory;
 import edu.mum.product.domain.Product;
+import edu.mum.product.domain.ProductMedia;
 
 @Transactional(propagation=Propagation.REQUIRED)
 public class ProductDao implements IProductDao {
@@ -22,11 +26,18 @@ public class ProductDao implements IProductDao {
 		this.sessionFactory = sessionFactory;
 	}
 
-	public void saveProduct(Product product, Catagory category) {
+	public void saveProduct(Product product, Catagory category,String fileName) {
 		
 		product.setCatagory(category);
 		
-		sessionFactory.getCurrentSession().persist(product);
+		sessionFactory.getCurrentSession().save(product);
+		
+		if(fileName!=null)
+		{
+			ProductMedia productMedia=new ProductMedia(product,Utilities.URL+Utilities.UPLOAD_FOLDER_NAME+fileName);
+			
+			sessionFactory.getCurrentSession().persist(productMedia);
+		}
 		
 		//sessionFactory.getCurrentSession().persist(category);
 		

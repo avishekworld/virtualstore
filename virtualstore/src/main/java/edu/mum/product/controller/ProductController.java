@@ -174,8 +174,9 @@ public class ProductController {
 	@RequestMapping(value="/product", method=RequestMethod.POST)
 	public String add(Product product, Catagory category,@RequestParam("file") MultipartFile file,MultipartHttpServletRequest request) {
 		
+		String fileName=null;
 		
-		productService.registerProduct(product, category);
+		
 		
 		//http://stackoverflow.com/questions/20162474/how-do-i-receive-a-file-upload-in-spring-mvc-using-both-multipart-form-and-chunk
 		
@@ -193,7 +194,7 @@ public class ProductController {
                 		directory.mkdirs();
                 	}
                 // saving the file
-                String fileName=System.currentTimeMillis()+".jpg";
+                fileName=System.currentTimeMillis()+".jpg";
                 File imageFile=new File(directory.getAbsolutePath()+System.getProperty("file.separator")+fileName);
                 BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(imageFile));
                 stream.write(bytes);
@@ -205,6 +206,8 @@ public class ProductController {
             	System.out.println("Product Image Saving Failed "+e);
             }
         }
+		
+		productService.registerProduct(product, category,fileName);
 		
 		return "redirect:/product";
 	}

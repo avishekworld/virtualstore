@@ -51,4 +51,11 @@ public class ProductMedia {
 		// TODO Auto-generated constructor stub
 	}
 
+	public ProductMedia(Product product, String url) {
+		this.product = product;
+		this.url = url;
+	}
+	
+	
+
 }

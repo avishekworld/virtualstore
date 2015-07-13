@@ -35,6 +35,11 @@ public class ProductController {
 	
 	@RequestMapping("/")
     public String redirectRoot(Model model) {
+		
+		model.addAttribute("pageTitle", "Home Page");
+		model.addAttribute("featuredProducts", productService.getFeaturedProducts());
+		model.addAttribute("relatedProducts", productService.getRelatedProducts());
+		System.out.println("\n\n\n\n------------ "+ productService.getFeaturedProducts().size());
         return "home";
     }
 	
@@ -45,7 +50,7 @@ public class ProductController {
 		model.addAttribute("pageTitle", "Home Page");
 		model.addAttribute("featuredProducts", productService.getFeaturedProducts());
 		model.addAttribute("relatedProducts", productService.getRelatedProducts());
-		
+		System.out.println("\n\n\n\n------------ "+ productService.getFeaturedProducts().size());
 		return "home";
     }
 	

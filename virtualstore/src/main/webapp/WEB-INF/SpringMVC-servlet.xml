@@ -13,21 +13,21 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 
 	  
-	  <mvc:annotation-driven />
-      <context:component-scan base-package="edu.mum" />
+	  	<mvc:annotation-driven />
+      	<context:component-scan base-package="edu.mum" />
       
-      
-      
-      <!-- Lets us find resources (.html etc) through the default servlet -->
+    	<!-- Lets us find resources (.html etc) through the default servlet -->
 		<mvc:default-servlet-handler/> 
-	
 
-	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
+		<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
 		up static resources in the ${webappRoot}/resources/ directory -->
 		<mvc:resources mapping="/resources/**" location="/resources/" />
+		
+		<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    		<property name="maxUploadSize" value="268435456" /> 
+		</bean>
 
-
-	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
+		<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">

@@ -24,7 +24,7 @@
     </head>
     <body>
         <div id="container">
-        <form action="product" method="post">
+        <form action="product" method="post" enctype="multipart/form-data" >
            
                 <h1>Add product</h1>
                 
@@ -33,17 +33,18 @@
                 <div class="line">price *: <input type="text" id="price" name="price" value = "2000" /></div>
                 <div class="line">quantity *: <input type="text" id="quantity" name="quantity" value = "1" /></div>
                 <div class="line">Category Name *: 
-<select  name = "name" >
-  <option  value="Arts">Arts</option>
-  <option  value="Electonics">Electonics</option>
-  <option  value="Men">Men</option>
-  <option  value="Women">Women</option>
-  <option  value="Computers">Computers</option>
-  <option  value="Clothing">Clothing</option>
-  <option  value="Toys">Toys</option>
-  <option value="Software">Software</option>
-</select>
- </div>
+					<select  name = "name" >
+					  <option  value="Arts">Arts</option>
+					  <option  value="Electonics">Electonics</option>
+					  <option  value="Men">Men</option>
+					  <option  value="Women">Women</option>
+					  <option  value="Computers">Computers</option>
+					  <option  value="Clothing">Clothing</option>
+					  <option  value="Toys">Toys</option>
+					  <option value="Software">Software</option>
+					</select>
+					 </div>
+				<div class="line">Image *: <input type="file" name="file" /></div>	 
 
                
                 <div class="line submit"><input type="submit" value="Submit" /></div>

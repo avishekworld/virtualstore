@@ -10,6 +10,7 @@ import edu.mum.admin.service.IAdminService;
 import edu.mum.customer.domain.Address;
 import edu.mum.customer.domain.User;
 import edu.mum.customer.domain.UserProfile;
+import edu.mum.product.domain.Catagory;
 
 @Controller
 public class AdminController {
@@ -30,6 +31,21 @@ public class AdminController {
 		adminService.createAdmin(user);
 		//return "redirect:/adminreg";
 		return "adminreg";
+	}
+	
+	@RequestMapping(value = "/category", method = RequestMethod.GET)
+    public String getC(Model model) {
+    	
+        return "category";
+    }
+	
+	@RequestMapping(value="/category", method=RequestMethod.POST)
+	public String addCategory( Catagory category) {
+		
+		
+		adminService.registerCategory(category);
+		
+		return "redirect:/category";
 	}
 
 }

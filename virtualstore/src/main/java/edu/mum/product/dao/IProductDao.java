@@ -15,10 +15,12 @@ import edu.mum.product.domain.Product;
 @Transactional(propagation=Propagation.REQUIRED)
 public interface IProductDao {
 	
-	public void saveProduct(Product product, Catagory category,String fileName);
+	public void saveProduct(Product product, int category,String fileName);
 	public  List<Product> getFeaturedProducts();
 	public  List<Product> getRelatedProducts();
 	public Product getProduct(Long productId);
+	public  List<Catagory> getCategories();
+	public  Catagory getCategory(int catagoryId);
 
 
 }

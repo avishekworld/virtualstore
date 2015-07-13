@@ -40,7 +40,7 @@ public class Product {
 	@OneToOne( mappedBy="product")
 	private ProductInventory productInventory;
 
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne
 	@JoinColumn(name="CATAGORY_ID")
 	private Catagory catagory;// = new ArrayList<Catagory>();
 

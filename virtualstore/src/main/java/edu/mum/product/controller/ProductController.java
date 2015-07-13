@@ -3,6 +3,7 @@ package edu.mum.product.controller;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -173,11 +174,15 @@ public class ProductController {
     @RequestMapping(value = "/product", method = RequestMethod.GET)
     public String getAll(Model model) {
     	
+    	List<Catagory> catagories=productService.getProductCategories();
+    	
+    	model.addAttribute("catagories", catagories);
+    	
         return "product";
     }
 	
 	@RequestMapping(value="/product", method=RequestMethod.POST)
-	public String add(Product product, Catagory category,@RequestParam("file") MultipartFile file,MultipartHttpServletRequest request) {
+	public String add(Product product, @RequestParam("catagoryId") int catagoryId,@RequestParam("file") MultipartFile file,MultipartHttpServletRequest request) {
 		
 		String fileName=null;
 		
@@ -212,7 +217,7 @@ public class ProductController {
             }
         }
 		
-		productService.registerProduct(product, category,fileName);
+		productService.registerProduct(product, catagoryId,fileName);
 		
 		return "redirect:/product";
 	}

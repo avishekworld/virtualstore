@@ -63,10 +63,15 @@ public class ProductService implements IProductService{
 	
 	
 
-	public void registerProduct(Product product, Catagory category,String fileName) {
-		productDao.saveProduct(product, category,fileName);
+	public void registerProduct(Product product, int catagoryId,String fileName) {
+		productDao.saveProduct(product, catagoryId,fileName);
 
 		
+	}
+	
+	public  List<Catagory> getProductCategories()
+	{
+		return productDao.getCategories();
 	}
 
 }

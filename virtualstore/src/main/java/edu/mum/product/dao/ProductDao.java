@@ -2,6 +2,7 @@ package edu.mum.product.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale.Category;
 
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
@@ -26,9 +27,12 @@ public class ProductDao implements IProductDao {
 		this.sessionFactory = sessionFactory;
 	}
 
-	public void saveProduct(Product product, Catagory category,String fileName) {
+	public void saveProduct(Product product, int catagoryId,String fileName) {
 		
-		product.setCatagory(category);
+		
+		Catagory catagory=getCategory(catagoryId);
+		
+		product.setCatagory(catagory);
 		
 		sessionFactory.getCurrentSession().save(product);
 		
@@ -41,6 +45,14 @@ public class ProductDao implements IProductDao {
 		
 		//sessionFactory.getCurrentSession().persist(category);
 		
+	}
+	
+	public  Catagory getCategory(int catagoryId)
+	{
+		String qString = "FROM Catagory c where c.id="+catagoryId;
+		Query q = sessionFactory.getCurrentSession().createQuery(qString);
+		Catagory catagory=(Catagory) q.list().get(0);
+		return catagory;
 	}
 	
 	@Override
@@ -66,6 +78,13 @@ public class ProductDao implements IProductDao {
 	@Override
 	public Product getProduct(Long productId) {
 		return (Product) sessionFactory.getCurrentSession().get( Product.class, productId);
+	}
+	
+	public  List<Catagory> getCategories()
+	{
+		String qString = "FROM Catagory C ";
+		Query q = sessionFactory.getCurrentSession().createQuery(qString);
+		return q.list();
 	}
 
 }

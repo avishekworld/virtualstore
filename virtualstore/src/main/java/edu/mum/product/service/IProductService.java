@@ -15,7 +15,9 @@ public interface IProductService {
 	public  List<Product> getRelatedProducts();
 	public Product getProduct(Long productId);
 	public int claculateRatings(Product product);
-	public void registerProduct(Product product, Catagory category,String fileName);
+	public void registerProduct(Product product, int catagoryId,String fileName);
+	public  List<Catagory> getProductCategories();
+	
 	
 
 

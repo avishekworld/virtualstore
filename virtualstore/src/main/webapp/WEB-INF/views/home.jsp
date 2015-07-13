@@ -10,7 +10,9 @@
 		<div class="featuredProduct">
 		
 			<div class="featuredProductImageDiv">
-				<img class="featuredProductImage" alt="${ product.name} " src="${product.productMedias.get(0).getUrl() }">
+				<c:if test="${product.productMedias.size() > 0 }">
+					<img class="featuredProductImage" alt="${ product.name} " src="${product.productMedias.get(0).getUrl() }">
+				</c:if>
 			</div>
 			<div class="featuredProductLinkDetails"><a href="http://localhost:8080/virtualstore/productDetails/${product.id }">${ product.name}</a> </div>
 			<div class="featuredProductLinkAdd"><a href="http://localhost:8080/virtualstore/AddToShoppingCart/${product.id }">Add</a> </div>
@@ -24,7 +26,10 @@
 		<div class="relatedProduct" >
 		
 			<div class="relatedProduct">
-				<img  alt="${ product.name} " src="${product.productMedias.get(0).getUrl() }">
+				<c:if test="${product.productMedias.size() > 0 }">
+					<img  alt="${ product.name} " src="${product.productMedias.get(0).getUrl() }">
+				</c:if>
+				
 			</div>
 			<div class="relatedProduct"><a href="http://localhost:8080/virtualstore/productDetails/${product.id }">${ product.name}</a> </div>
 		</div>

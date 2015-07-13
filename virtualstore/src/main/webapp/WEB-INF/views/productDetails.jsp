@@ -24,7 +24,7 @@
 			<c:forEach var="productDetail" items="${ product.details}" >
 				<p> ${ productDetail }</p>
 			</c:forEach>
-			<p>${product.catagory.name }</p>
+			<p>${product.catagory.catagoryName }</p>
 			<a href="http://localhost:8080/virtualstore/productReview/${product.id }">Customer Reviews</a> 
 	</div>
 	

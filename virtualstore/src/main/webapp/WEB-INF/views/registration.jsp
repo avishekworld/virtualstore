@@ -3,6 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
+    <title>User Registration</title>
         <style type="text/css">
  
             body {font-family:Arial, Sans-Serif;}
@@ -27,25 +28,25 @@
             <form action="registration" method="post">
                 <h1>Registration</h1>
                 <div class="line"><label for="username">Username *: </label><input type="text" id="username" value = "someone"name="username" /></div>
-                <div class="line"><label for="pwd">Password *: </label><input type="password" id="password" name = "password"/></div>
+                <div class="line"><label for="pwd">Password *: </label><input type="password" id="password" name = "password" value="123456" /></div>
 
-                <div class="line"><label for="firstname">First Name *: </label><input type="text" id="firstname" name="firstname" value="barak" /></div>
-                <div class="line"><label for="lastname">Last Name *: </label><input type="text" id="lastname" name="lastname" value = "obama" /></div>
+                <div class="line"><label for="firstname">First Name *: </label><input type="text" id="firstName" name="firstName" value="barak" /></div>
+                <div class="line"><label for="lastname">Last Name *: </label><input type="text" id="lastName" name="lastName" value = "obama" /></div>
                 
                 <div class="line"><label for="email">Email *: </label><input type="email" id="email" name="email" value="test@yahoo.com" /></div>
 
-                <div class="line"><label for="tel">phone: </label><input type="text" id="phone" name="phone" value ="34345345"/></div>
+                <div class="line"><label for="tel">phone: </label><input type="text" id="phone" name="phone" value ="34345345" /></div>
 <br />Billing Address<br />
-                <div class="line"><label for="lineone">Line one *: </label><input type="text" id="lineone" name="lineone" value = "140 4th st." /></div>
-                <div class="line"><label for="linetwo">Line Two *: </label><input type="text" id="linetwo" name="linetwo" value = "N/A" /></div>
+                <div class="line"><label for="lineOne">Line one *: </label><input type="text" id="lineOne" name="lineOne" value = "141 4th st." /></div>
+                <div class="line"><label for="lineTwo">Line Two *: </label><input type="text" id="lineTwo" name="lineTwo" value = "N/A" /></div>
                 <div class="line"><label for="state">State *: </label><input type="text" id="state" name="state" value = "North Carolina." /></div>
-                <div class="line"><label for="zipcode">zip code *: </label><input type="text" id="zipcode" name="zipcode" value = "43242." /></div>
+                <div class="line"><label for="zipCode">zip code *: </label><input type="text" id="zipcode" name="zipCode" value = "53242" /></div>
 
 <br />Shipping Address<br />
-                <div class="line"><label for="lineone">Line one *: </label><input type="text" id="lineone" name="lineone" value = "140 4th st." /></div>
-                <div class="line"><label for="linetwo">Line Two *: </label><input type="text" id="linetwo" name="linetwo" value = "N/A" /></div>
+                <div class="line"><label for="lineOne">Line one *: </label><input type="text" id="lineone" name="lineOne" value = "140 4th st." /></div>
+                <div class="line"><label for="lineTwo">Line Two *: </label><input type="text" id="linetwo" name="lineTwo" value = "N/A" /></div>
                 <div class="line"><label for="state">State *: </label><input type="text" id="state" name="state" value = "North Carolina." /></div>
-                <div class="line"><label for="zipcode">zip code *: </label><input type="text" id="zipcode" name="zipcode" value = "43242." /></div>
+                <div class="line"><label for="zipCode">zip code *: </label><input type="text" id="zipcode" name="zipCode" value = "43242" /></div>
 
                
                 <div class="line submit"><input type="submit" value="Submit" /></div>

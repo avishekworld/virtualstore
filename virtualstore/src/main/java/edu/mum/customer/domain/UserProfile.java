@@ -20,9 +20,9 @@ public class UserProfile {
 	private Long id;
 	
 	
-	@OneToOne(cascade=CascadeType.ALL)
+	/*@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="USER_ID")
-	private User user;
+	private User user;*/
 	
 	@Column(name="FIRST_NAME")
 	private String firstName;
@@ -62,13 +62,13 @@ public class UserProfile {
 		this.id = id;
 	}
 
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
+//	public User getUser() {
+//		return user;
+//	}
+//
+//	public void setUser(User user) {
+//		this.user = user;
+//	}
 
 	public String getFirstName() {
 		return firstName;
@@ -108,6 +108,14 @@ public class UserProfile {
 
 	public void setBillingAddress(Address billingAddress) {
 		this.billingAddress = billingAddress;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 	
 	

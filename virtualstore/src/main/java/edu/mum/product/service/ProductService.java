@@ -7,7 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import edu.mum.product.dao.IProductDAO;
+import edu.mum.product.dao.IProductDao;
+import edu.mum.product.domain.Catagory;
 import edu.mum.product.domain.Product;
 import edu.mum.review.domain.Review;
 
@@ -15,29 +16,36 @@ import edu.mum.review.domain.Review;
 public class ProductService implements IProductService{
 	
 	@Autowired
-	private IProductDAO productDAO;
+	private IProductDao productDao;
 	 
 	public ProductService() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public ProductService(IProductDAO productDAO) {
-		this.productDAO = productDAO;
+
+	public IProductDao getProductDao() {
+		return productDao;
 	}
-	
+
+
+	public void setProductDao(IProductDao productDao) {
+		this.productDao = productDao;
+	}
+
+
 	@Override
 	public  List<Product> getFeaturedProducts(){
-		return productDAO.getFeaturedProducts();
+		return productDao.getFeaturedProducts();
 	}
 	
 	@Override
 	public  List<Product> getRelatedProducts(){
-		return productDAO.getRelatedProducts();
+		return productDao.getRelatedProducts();
 	}
 
 	@Override
 	public Product getProduct(Long productId) {
-		return productDAO.getProduct( productId);
+		return productDao.getProduct( productId);
 	}
 
 	@Override
@@ -54,6 +62,11 @@ public class ProductService implements IProductService{
 	}
 	
 	
-	
-	
+
+	public void registerProduct(Product product, Catagory category) {
+		productDao.saveProduct(product, category);
+
+		
+	}
+
 }

@@ -14,8 +14,8 @@ public class Catagory {
 	@Column(name="CATAGORY_ID")
 	private Long id;
 	
-	@Column(name="NAME")
-	private String name;
+	@Column(name="CATAGORY_NAME")
+	private String catagoryName;
 	
 	public Long getId() {
 		return id;
@@ -25,12 +25,14 @@ public class Catagory {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	
+
+	public String getCatagoryName() {
+		return catagoryName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setCatagoryName(String catagoryName) {
+		this.catagoryName = catagoryName;
 	}
 
 	public Catagory() {

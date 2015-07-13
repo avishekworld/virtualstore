@@ -1,22 +1,23 @@
-package edu.mum.product.service;
-
+package edu.mum.product.dao;
 
 import java.util.List;
 
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import edu.mum.product.domain.Product;
-import edu.mum.product.domain.Catagory;
 
-@Transactional(propagation=Propagation.REQUIRES_NEW)
-public interface IProductService {
+
+
+import edu.mum.product.domain.Catagory;
+import edu.mum.product.domain.Product;
+
+@Transactional(propagation=Propagation.REQUIRED)
+public interface IProductDao {
+	
+	public void saveProduct(Product product, Catagory category);
 	public  List<Product> getFeaturedProducts();
 	public  List<Product> getRelatedProducts();
 	public Product getProduct(Long productId);
-	public int claculateRatings(Product product);
-	public void registerProduct(Product product, Catagory category);
-	
 
 
 }

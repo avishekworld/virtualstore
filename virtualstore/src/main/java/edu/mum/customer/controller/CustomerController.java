@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import edu.mum.customer.domain.Address;
 import edu.mum.customer.domain.User;
 import edu.mum.customer.domain.UserProfile;
 import edu.mum.customer.service.IUserService;
@@ -24,8 +25,10 @@ public class CustomerController {
     }
 	
 	@RequestMapping(value="/registration", method=RequestMethod.POST)
-	public String add(User user, UserProfile userProfile) {
+	public String add(User user, UserProfile userProfile,Address billingAddress,Address shippingAddress) {
 		
+		userProfile.setBillingAddress(billingAddress);
+		userProfile.setShippingAddress(shippingAddress);
 		userService.registerUser(user, userProfile);
 		return "redirect:/registration";
 	}

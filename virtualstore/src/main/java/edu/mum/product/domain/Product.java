@@ -5,15 +5,17 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import edu.mum.customer.domain.PaymentInfo;
 import edu.mum.review.domain.Review;
 
 @Entity
@@ -30,77 +32,90 @@ public class Product {
 	@Column(name="PRICE")
 	private Float price;
 	
+	@JoinTable(name="PRODUCT_DETAILS_TABLE", joinColumns=@JoinColumn(name="PRODUCT_ID"))
+	@Column(name="DETAILS")
+	@ElementCollection(fetch=FetchType.EAGER)
+	private List<String> details = new ArrayList<String>();
+	
 	@OneToOne( mappedBy="product")
 	private ProductInventory productInventory;
-	
+
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="CATAGORY_ID")
 	private Catagory catagory;// = new ArrayList<Catagory>();
-	
+
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="product")
 	private List<Review> reviews = new ArrayList<Review>();
 	
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="product")
 	private List<ProductMedia> productMedias = new ArrayList<ProductMedia>();
 	
-	public List<ProductMedia> getProductMedias() {
-		return productMedias;
+	public Product() {
+		// TODO Auto-generated constructor stub
 	}
-
-	public void setProductMedias(List<ProductMedia> productMedias) {
-		this.productMedias = productMedias;
-	}
-
-	public List<Review> getReviews() {
-		return reviews;
-	}
-
-	public void setReviews(List<Review> reviews) {
-		this.reviews = reviews;
-	}
-
+	
 	public Catagory getCatagory() {
 		return catagory;
 	}
-
-	public void setCatagory(Catagory catagory) {
-		this.catagory = catagory;
-	}
-
-	public Product() {
-		// TODO Auto-generated constructor stub
+	
+	public List<String> getDetails() {
+		return details;
 	}
 
 	public Long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	public String getName() {
 		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public Float getPrice() {
 		return price;
 	}
 
-	public void setPrice(Float price) {
-		this.price = price;
-	}
-
 	public ProductInventory getProductInventory() {
 		return productInventory;
 	}
 
+	public List<ProductMedia> getProductMedias() {
+		return productMedias;
+	}
+
+	public List<Review> getReviews() {
+		return reviews;
+	}
+
+	public void setCatagory(Catagory catagory) {
+		this.catagory = catagory;
+	}
+
+	public void setDetails(List<String> details) {
+		this.details = details;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setPrice(Float price) {
+		this.price = price;
+	}
+
 	public void setProductInventory(ProductInventory productInventory) {
 		this.productInventory = productInventory;
+	}
+
+	public void setProductMedias(List<ProductMedia> productMedias) {
+		this.productMedias = productMedias;
+	}
+
+	public void setReviews(List<Review> reviews) {
+		this.reviews = reviews;
 	}
 
 }

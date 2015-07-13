@@ -10,6 +10,6 @@ import edu.mum.customer.domain.UserProfile;
 public interface IUserService {
 	
 	public void registerUser(User user, UserProfile userProfile);
-	
+	public User getUser(Long userId);
 
 }

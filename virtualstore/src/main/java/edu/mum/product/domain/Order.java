@@ -18,6 +18,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import edu.mum.customer.domain.Address;
 import edu.mum.customer.domain.PaymentInfo;
 import edu.mum.customer.domain.User;

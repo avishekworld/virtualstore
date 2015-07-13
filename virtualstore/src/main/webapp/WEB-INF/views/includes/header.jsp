@@ -1,3 +1,4 @@
+<%@page import="org.springframework.context.annotation.Import"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.text.DateFormat"%>
@@ -12,6 +13,7 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.text.DateFormat"%>
 
+
 <!DOCTYPE>
 <html>
 <head>
@@ -20,6 +22,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Bootstrap -->
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="<c:url value="/css/main.css" />" rel="stylesheet">
+
 <script src="bootstrap/js/respond.js"></script>
     
 <title>${pageTitle }</title>

@@ -25,6 +25,7 @@
   	
 	  <tx:annotation-driven transaction-manager="txManager" />
 	  
+	  
 	  <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" >
 	  		<property name="dataSource" ref="dataSource"/>
 	  </bean>
@@ -37,8 +38,12 @@
 	<bean id="userDao" class="edu.mum.customer.dao.UserDao" />
 	
 	<bean id="productService" class="edu.mum.product.service.ProductService" />
-	<bean id="productDao" class="edu.mum.product.dao.ProductDAO" />
+	<bean id="productDAO"     class="edu.mum.product.dao.ProductDAO" />
 	
+	<bean id="reviewService" class="edu.mum.review.service.ReviewService"/>
+	<bean id="reviewDao" class="edu.mum.review.dao.ReviewDao"/>
+	
+<!-- 	<bean id="order" class="edu.mum.product.domain.Order"/> -->
 	
 	<!-- Hibernate SessionFactory -->
 	<bean id="sessionFactory"

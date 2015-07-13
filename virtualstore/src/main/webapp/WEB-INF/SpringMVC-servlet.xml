@@ -25,7 +25,11 @@
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
 		up static resources in the ${webappRoot}/resources/ directory -->
 		<mvc:resources mapping="/resources/**" location="/resources/" />
-
+	
+	<!-- Added By Wahid -->
+	  <mvc:resources location="/WEB-INF/images/" mapping="/images/**"/>
+	  <mvc:resources location="/WEB-INF/css/" mapping="/css/**" cache-period="1"/>
+	  <!-- END Added By Wahid -->
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->

@@ -1,4 +1,4 @@
-package edu.mum.customer.dao;
+package edu.mum.review.dao;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,11 +6,11 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import edu.mum.customer.domain.User;
-import edu.mum.customer.domain.UserProfile;
+import edu.mum.review.domain.Review;
 
 @Transactional(propagation=Propagation.REQUIRED)
-public class UserDao implements IUserDao {
-
+public  class ReviewDao implements IReviewDao {
+	
 	@Autowired
 	private SessionFactory sessionFactory;
 
@@ -18,15 +18,11 @@ public class UserDao implements IUserDao {
 		this.sessionFactory = sessionFactory;
 	}
 
-	public void saveUser(User user, UserProfile userProfile) {
-		sessionFactory.getCurrentSession().persist(user);
-		sessionFactory.getCurrentSession().persist(userProfile);
+	public void addReview(Review review, User user) {
 		
+		review.setUser(user);
+		sessionFactory.getCurrentSession().save(review);
+
 	}
-	
-	public User getUser(Long userId) {
-		// TODO Auto-generated method stub
-		return (User) sessionFactory.getCurrentSession().get( User.class, userId);
-	}
-	
+
 }

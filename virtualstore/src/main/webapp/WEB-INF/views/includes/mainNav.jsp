@@ -1,6 +1,6 @@
 <section>
 	<ul style="display: inline; margin-left: 15px; font-size: large;">
-		<li style="display: inline;  margin-left: 15px;"><a href="http://localhost:8080/virtualstore/">Home</a></li>
+		<li style="display: inline;  margin-left: 15px;"><a href="http://localhost:8080/virtualstore/home">Home</a></li>
 		
 		<sec:authorize access="hasRole('ROLE_PRODUCT_OWNER')" >
         	<li style="display: inline;  margin-left: 15px;"><a href="http://localhost:8080/MumScrum/productBacklogCreate">Create Product Backlog</a></li>

@@ -1,0 +1,26 @@
+@CHARSET "ISO-8859-1";
+
+section.mainSection{
+	border: 1px solid red;
+	display: inline-block;
+}
+
+section.mainSection .featuredProduct{
+	border: 1px solid green;
+	
+}
+
+img.featuredProductImage{
+	width: 200px;
+	height: 200px;
+	
+}
+
+
+/*
+righSection 
+*/
+section.rightSection{
+	border: 1px solid blue;
+	
+}

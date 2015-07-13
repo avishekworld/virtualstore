@@ -10,5 +10,5 @@ import edu.mum.customer.domain.UserProfile;
 public interface IUserDao {
 	
 	public void saveUser(User user,UserProfile userProfile);
-
+	public User getUser(Long userId);
 }

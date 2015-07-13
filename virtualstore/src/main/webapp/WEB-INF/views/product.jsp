@@ -33,7 +33,7 @@
                 <div class="line">price *: <input type="text" id="price" name="price" value = "2000" /></div>
                 <div class="line">quantity *: <input type="text" id="quantity" name="quantity" value = "1" /></div>
                 <div class="line">Category Name *: 
-					<select  name = "name" >
+					<select  name = "catagoryName" >
 					  <option  value="Arts">Arts</option>
 					  <option  value="Electonics">Electonics</option>
 					  <option  value="Men">Men</option>

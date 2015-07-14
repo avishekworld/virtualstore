@@ -13,7 +13,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
 
+import edu.mum.admin.domain.PaymentResponse;
+import edu.mum.admin.domain.Utilities;
 import edu.mum.customer.dao.UserDao;
 import edu.mum.customer.domain.Address;
 import edu.mum.customer.domain.PayType;
@@ -25,6 +28,8 @@ import edu.mum.customer.service.IUserService;
 
 @Controller
 public class CustomerController {
+	
+	
 
 	@Autowired
     private IUserService userService;
@@ -50,13 +55,45 @@ public class CustomerController {
         return "addpayment";
     }
 	
+	
+	        
+    @RequestMapping(value = "/checkout", method = RequestMethod.GET)
+    public String getCheckout(Model model) {
+    	
+    	//UserProfile userProfile=(UserProfile) request.getSession().getAttribute("userprofile");
+    	
+		User user=userService.getUser(1L);
+		
+		model.addAttribute("payments", user.getPaymentInfos());
+    	
+        return "checkout";
+    }
+    
+    @RequestMapping(value = "/checkout", method = RequestMethod.POST)
+    public String doCheckout(Model model,@RequestParam("amount") double amount,@RequestParam("paymentId") long paymentId) {
+    	
+    	//UserProfile userProfile=(UserProfile) request.getSession().getAttribute("userprofile");
+    	
+		User user=userService.getUser(1L);
+		
+		PaymentInfo paymentInfo=userService.getPaymentInfo(paymentId);
+		
+		RestTemplate paymentRest=new RestTemplate();
+		
+		PaymentResponse paymentResponse = paymentRest.postForObject(Utilities.URL+"/rest/paymentrequest", paymentInfo, PaymentResponse.class);
+    	
+		model.addAttribute("message", paymentResponse.getMessage());
+        return "checkout";
+    }
+	
 	@RequestMapping(value="/payment", method=RequestMethod.POST)
-	public String addPayment(@RequestParam("cardNumber") String cardNumber,@RequestParam("expireDate") String expireDate,HttpServletRequest request) {
+	public String addPayment(@RequestParam("cardNumber") String cardNumber,@RequestParam("paymentName") String paymentName,@RequestParam("expireDate") String expireDate,HttpServletRequest request) {
 		
 		//UserProfile userProfile=(UserProfile) request.getSession().getAttribute("userprofile");
 		
 		PaymentInfo paymentInfo=new PaymentInfo();
 		paymentInfo.setCardNumber(cardNumber);
+		paymentInfo.setPaymentName(paymentName);
 		
 		Date date=new Date();
 

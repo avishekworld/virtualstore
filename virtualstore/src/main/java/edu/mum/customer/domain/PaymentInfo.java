@@ -29,6 +29,17 @@ public class PaymentInfo {
 	@Column(name="PAYMENT_TYPE")
 	private PayType payType;
 	
+	@Column(name="PAYMENT_NAME")
+	private String paymentName;
+	
+	public String getPaymentName() {
+		return paymentName;
+	}
+
+	public void setPaymentName(String paymentName) {
+		this.paymentName = paymentName;
+	}
+
 	@Column(name="PAYMENT_CARD_NUMBER")
 	private String cardNumber;
 	

@@ -31,6 +31,11 @@ public class UserService implements IUserService {
 		return userDao.getUser(userId);
 	}
 	
+	public PaymentInfo getPaymentInfo(Long paymentId)
+	{
+		return userDao.loadPaymentInfo(paymentId);
+	}
+	
 	public void addPayment(PaymentInfo paymentInfo)
 	{
 		userDao.savePayment(paymentInfo);

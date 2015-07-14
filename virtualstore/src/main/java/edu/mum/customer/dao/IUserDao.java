@@ -13,5 +13,6 @@ public interface IUserDao {
 	public void saveUser(User user,UserProfile userProfile);
 	public User getUser(Long userId);
 	public void savePayment(PaymentInfo paymentInfo);
+	public PaymentInfo loadPaymentInfo(Long paymentId);
 	
 }

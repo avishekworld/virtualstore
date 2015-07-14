@@ -5,7 +5,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
-    	<title>Admin Registration</title>
         <style type="text/css">
  
             body {font-family:Arial, Sans-Serif;}
@@ -27,11 +26,22 @@
     </head>
     <body>
         <div id="container">
-            <form action="createadmin" method="post">
-                <h1>Admin Registration</h1>
-                <div class="line"><label for="username">Username *: </label><input type="text" id="username" value = "someone"name="username" /></div>
-                <div class="line"><label for="pwd">Password *: </label><input type="password" id="password" name = "password" value="123456" /></div>
+        <h1>${message}</h1>
+        <form action="checkout" method="post"  >
+           
+                <h1>Select Payment</h1>
+                
 
+                <div class="line">Amount: <input type="text" id="name" name="amount" value ="100" /></div>
+                <div class="line">Payment *: 
+					<select  name = "paymentId" >
+					
+						<c:forEach var="paymentInfo" items="${payments}">
+							<option  value="${paymentInfo.id}">${paymentInfo.paymentName}</option>
+						</c:forEach>
+					</select>
+					 </div>
+               
                 <div class="line submit"><input type="submit" value="Submit" /></div>
  
                 <p>Note: Please make sure your details are correct before submitting form and that all fields marked with * are completed!.</p>

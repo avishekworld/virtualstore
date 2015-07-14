@@ -25,8 +25,10 @@
             <form action="payment" method="post">
             
                 <h1>Add Payment</h1>
+                
+                <div class="line">Payment Name : <input type="text" id="paymentName" name="paymentName" /></div>
 
-                <div class="line">Card Number : <input type="text" id="cardNumber" name="cardNumber"/></div>
+                <div class="line">Card Number : <input type="text" id="cardNumber" name="cardNumber" /></div>
                 
                 <div class="line">Expire Date : <input type="date" id="expireDate" name="expireDate" min="2015-7-14" /></div>
 

@@ -38,6 +38,11 @@ public class UserDao implements IUserDao {
 		return (User) sessionFactory.getCurrentSession().get( User.class, userId);
 	}
 	
+	public PaymentInfo loadPaymentInfo(Long paymentId)
+	{
+		return (PaymentInfo) sessionFactory.getCurrentSession().get( PaymentInfo.class, paymentId);
+	}
+	
 	public void savePayment(PaymentInfo paymentInfo)
 	{
 		sessionFactory.getCurrentSession().persist(paymentInfo);

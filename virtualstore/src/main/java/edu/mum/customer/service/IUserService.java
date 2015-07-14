@@ -12,7 +12,7 @@ public interface IUserService {
 	
 	public void registerUser(User user, UserProfile userProfile);
 	public User getUser(Long userId);
-	
+	public PaymentInfo getPaymentInfo(Long paymentId);
 	public void addPayment(PaymentInfo paymentInfo);
 
 }

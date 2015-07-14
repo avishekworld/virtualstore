@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
+
 import edu.mum.admin.domain.PaymentResponse;
+import edu.mum.admin.domain.UserRole;
 import edu.mum.admin.domain.Utilities;
 import edu.mum.customer.dao.UserDao;
 import edu.mum.customer.domain.Address;
@@ -79,13 +81,15 @@ public class CustomerController {
 					@RequestParam("password") String password, HttpServletRequest request) {
 					
 		User user = userService.getUserByUsername( username );
+		UserRole userRole = userService.getUserRole(user.getId());
 		
 		if ( user != null && user.getPassword().equals( password ) ) {
 			
 			UserProfile userProfile = userService.getUserProfileByUserId( user.getId() );			
 			request.getSession().setAttribute("islogged", "true");
 			request.getSession().setAttribute("userProfile", userProfile);
-			//request.getSession().setAttribute("userProfileID", userProfile.getId());
+			request.getSession().setAttribute("userRole", userRole);
+			
 		}else{
 			return "login";
 		}

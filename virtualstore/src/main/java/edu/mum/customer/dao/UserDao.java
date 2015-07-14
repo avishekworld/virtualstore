@@ -42,6 +42,11 @@ public class UserDao implements IUserDao {
 		// TODO Auto-generated method stub
 		return (User) sessionFactory.getCurrentSession().get( User.class, userId);
 	}
+	
+	public UserRole loadUserRole(Long userId)
+	{
+		return (UserRole) sessionFactory.getCurrentSession().get( UserRole.class, userId);
+	}
 
 	@Override
 	public User getUserByUsername(String username) {
@@ -59,10 +64,14 @@ public class UserDao implements IUserDao {
 
 	@Override
 	public UserProfile getUserProfileByUserId(Long userid) {
-		String qString = "FROM UserProfile U WHERE U.user.id=:UPID";
+		String qString = "FROM User U WHERE U.id=:UPID";
 		Query q = sessionFactory.getCurrentSession().createQuery(qString);
 		q.setParameter("UPID", userid);
-		return (UserProfile)q.uniqueResult();
+		
+		User u=(User)q.uniqueResult();
+		UserProfile up=u.getUserProfile();
+		
+		return up;
 	}
 	
 	public PaymentInfo loadPaymentInfo(Long paymentId)

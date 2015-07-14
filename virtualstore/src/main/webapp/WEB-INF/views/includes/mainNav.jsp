@@ -6,9 +6,8 @@
 <%
 	if( request.getSession().getAttribute("islogged") != null && request.getSession().getAttribute("islogged").equals("true")){
 %>		
-	<li style="display: inline;  margin-left: 15px;">Welcome ${userProfile.firstName }</li>
+	<li style="display: inline;  margin-left: 15px;">Welcome <a href="/virtualstore/profile/${ userProfile.id}">${userProfile.firstName}</a></li>
 	<li style="display: inline;  margin-left: 15px;"><a href="/virtualstore/shoppingCart">Your Cart</a></li>
-	<li style="display: inline;  margin-left: 15px;"><a href="/virtualstore/profile/${ userProfile.id}">Your Profile</a></li>
 	
 <% 	
 	}
@@ -18,10 +17,29 @@
 // 		response.sendRedirect( site);
 // 	}
 	
-%>		
+%>	
+
+		<%
+	if( request.getSession().getAttribute("islogged") != null && request.getSession().getAttribute("islogged").equals("true")){
+	%>		
+		<li style="display: inline;  margin-left: 15px;"><a href="/virtualstore/logout">Logout</a></li>
+		
+	<% 	
+		}
+		
+	else{
+
+		
+	%>	
+	
 		<li style="display: inline;  margin-left: 15px;"><a href="/virtualstore/registration">Sign up</a></li>
 		<li style="display: inline;  margin-left: 15px;"><a href="/virtualstore/login">Login</a></li>
-		<li style="display: inline;  margin-left: 15px;"><a href="/virtualstore/logout">Logout</a></li>
+	<% 
+	
+	}
+	%>
+		
+		
 	</ul>
 </div>
 <div class="search">

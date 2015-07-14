@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import edu.mum.admin.domain.UserRole;
 import edu.mum.customer.dao.IUserDao;
 import edu.mum.customer.domain.PaymentInfo;
 import edu.mum.customer.domain.User;
@@ -27,6 +28,11 @@ public class UserService implements IUserService {
 	
 	public User getUser(Long userId) {
 		return userDao.getUser(userId);
+	}
+	
+	public UserRole getUserRole(Long userId)
+	{
+		return userDao.loadUserRole(userId);
 	}
 	
 	public PaymentInfo getPaymentInfo(Long paymentId)

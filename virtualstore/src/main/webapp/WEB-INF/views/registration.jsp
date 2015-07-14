@@ -39,8 +39,7 @@ if( request.getSession().getAttribute("islogged") != null && request.getSession(
     </head>
     
     <body>
-    
-    <%@include file="includes/mainNav.jsp" %>
+   
     
         <div id="container">
             <form action="registration" method="post">

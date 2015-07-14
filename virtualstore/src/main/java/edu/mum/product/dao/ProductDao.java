@@ -15,6 +15,8 @@ import com.mysql.jdbc.Util;
 import edu.mum.admin.domain.Utilities;
 import edu.mum.product.domain.Catagory;
 import edu.mum.product.domain.Product;
+import edu.mum.product.domain.ProductInventory;
+import edu.mum.product.domain.ProductJsonObject;
 import edu.mum.product.domain.ProductMedia;
 
 @Transactional(propagation=Propagation.REQUIRED)
@@ -27,24 +29,37 @@ public class ProductDao implements IProductDao {
 		this.sessionFactory = sessionFactory;
 	}
 	
-	public Product loadLatestProduct(int newProductId)
+	public ProductJsonObject loadLatestProduct(int newProductId)
 	{
 		String qString = "FROM Product P ORDER BY P.id DESC";
 		Query q = sessionFactory.getCurrentSession().createQuery(qString);
 		q.setMaxResults(newProductId);
 		List<Product> newProducts =  q.list();
 		
-		return newProducts.get(newProductId-1);
+		Product latestProduct=newProducts.get(newProductId-1);
+		
+		String productDefaultImage="none";
+		
+		if(latestProduct.getProductMedias().size()>0)
+		{
+			productDefaultImage=latestProduct.getProductMedias().get(0).getUrl();
+		}
+		
+		return new ProductJsonObject(latestProduct.getId(), latestProduct.getName(), latestProduct.getPrice(), latestProduct.getProductInventory().getQuantity(), productDefaultImage);
 	}
 
-	public void saveProduct(Product product, int catagoryId,String fileName) {
+	public void saveProduct(Product product, int catagoryId,int quantity,String fileName) {
 		
 		
 		Catagory catagory=getCategory(catagoryId);
 		
+		ProductInventory productInventory=new ProductInventory(quantity,product);
+		
 		product.setCatagory(catagory);
 		
 		sessionFactory.getCurrentSession().save(product);
+		
+		sessionFactory.getCurrentSession().save(productInventory);
 		
 		if(fileName!=null)
 		{

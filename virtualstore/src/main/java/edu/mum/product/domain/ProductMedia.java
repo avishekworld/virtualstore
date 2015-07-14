@@ -45,7 +45,7 @@ public class ProductMedia {
 	}
 
 	@Column(name="URL")
-	private String url;;
+	private String url;
 	
 	public ProductMedia() {
 		// TODO Auto-generated constructor stub

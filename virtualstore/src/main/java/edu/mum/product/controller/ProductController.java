@@ -15,18 +15,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import edu.mum.customer.domain.User;
 import edu.mum.product.domain.Catagory;
 import edu.mum.product.domain.Order;
 import edu.mum.product.domain.OrderLine;
 import edu.mum.product.domain.Product;
+import edu.mum.product.domain.ProductJsonObject;
 import edu.mum.product.service.IProductService;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 
+//@RestController
 @Controller
+@EnableWebMvc
 public class ProductController {
 
 	
@@ -57,10 +63,11 @@ public class ProductController {
 		return "home";
     }
 	
-	@RequestMapping(value="/rest/product/{id}", method=RequestMethod.GET)
-	public @ResponseBody Product getProduct(@PathVariable("id") int id)
+	@RequestMapping(value="/rest/product/{id}", method=RequestMethod.GET,headers = "Accept=application/json",produces = "application/json")
+	public @ResponseBody ProductJsonObject getProduct(@PathVariable("id") int id)
 	{
-		return productService.getLatesProduct(id);
+		ProductJsonObject jsonObject=productService.getLatesProduct(id);
+		return jsonObject;
 	}
 	
 	@RequestMapping(value = "/productDetails/{productId}", method = RequestMethod.GET)
@@ -190,12 +197,10 @@ public class ProductController {
     }
 	
 	@RequestMapping(value="/product", method=RequestMethod.POST)
-	public String add(Product product, @RequestParam("catagoryId") int catagoryId,@RequestParam("file") MultipartFile file,MultipartHttpServletRequest request) {
+	public String add(Product product, @RequestParam("catagoryId") int catagoryId, @RequestParam("quantity") int quantity,@RequestParam("file") MultipartFile file,MultipartHttpServletRequest request) {
 		
 		String fileName=null;
-		
-		
-		
+
 		//http://stackoverflow.com/questions/20162474/how-do-i-receive-a-file-upload-in-spring-mvc-using-both-multipart-form-and-chunk
 		
 		if (!file.isEmpty()) 
@@ -225,7 +230,7 @@ public class ProductController {
             }
         }
 		
-		productService.registerProduct(product, catagoryId,fileName);
+		productService.registerProduct(product, catagoryId,quantity,fileName);
 		
 		return "redirect:/product";
 	}

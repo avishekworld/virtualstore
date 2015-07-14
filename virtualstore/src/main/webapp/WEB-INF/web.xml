@@ -23,7 +23,12 @@
 	    <listener>
 	        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	    </listener>	
-         
+	    
+	    <mime-mapping>
+		    <extension>sub</extension>
+		    <mime-type>application/json</mime-type>
+		</mime-mapping>
+		         
 <!--     <display-name>VirtualStore</display-name> -->
 <!--     <welcome-file-list> -->
 <!--         <welcome-file>UserServlet</welcome-file> -->

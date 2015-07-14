@@ -21,6 +21,7 @@ public interface IProductDao {
 	public Product getProduct(Long productId);
 	public  List<Catagory> getCategories();
 	public  Catagory getCategory(int catagoryId);
+	public Product loadLatestProduct(int newProductId);
 
 
 }

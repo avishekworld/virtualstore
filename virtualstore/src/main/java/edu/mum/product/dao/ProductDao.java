@@ -26,6 +26,16 @@ public class ProductDao implements IProductDao {
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
+	
+	public Product loadLatestProduct(int newProductId)
+	{
+		String qString = "FROM Product P ORDER BY P.id DESC";
+		Query q = sessionFactory.getCurrentSession().createQuery(qString);
+		q.setMaxResults(newProductId);
+		List<Product> newProducts =  q.list();
+		
+		return newProducts.get(newProductId-1);
+	}
 
 	public void saveProduct(Product product, int catagoryId,String fileName) {
 		
@@ -55,7 +65,7 @@ public class ProductDao implements IProductDao {
 		return catagory;
 	}
 	
-	@Override
+
 	public List<Product> getFeaturedProducts() {
 		String qString = "FROM Product P ORDER BY P.id DESC";
 		Query q = sessionFactory.getCurrentSession().createQuery(qString);
@@ -69,13 +79,13 @@ public class ProductDao implements IProductDao {
 		return null;
 	}//End
 
-	@Override
+
 	public List<Product> getRelatedProducts() {
 		
 		return getFeaturedProducts();
 	}
 
-	@Override
+	
 	public Product getProduct(Long productId) {
 		return (Product) sessionFactory.getCurrentSession().get( Product.class, productId);
 	}

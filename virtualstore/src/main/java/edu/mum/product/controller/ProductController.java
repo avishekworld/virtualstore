@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -23,6 +24,7 @@ import edu.mum.product.domain.Order;
 import edu.mum.product.domain.OrderLine;
 import edu.mum.product.domain.Product;
 import edu.mum.product.service.IProductService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 @Controller
 public class ProductController {
@@ -54,6 +56,12 @@ public class ProductController {
 		System.out.println("\n\n\n\n------------ "+ productService.getFeaturedProducts().size());
 		return "home";
     }
+	
+	@RequestMapping(value="/rest/product/{id}", method=RequestMethod.GET)
+	public @ResponseBody Product getProduct(@PathVariable("id") int id)
+	{
+		return productService.getLatesProduct(id);
+	}
 	
 	@RequestMapping(value = "/productDetails/{productId}", method = RequestMethod.GET)
     public String productDetails(Model model, @PathVariable("productId") Long productId) {

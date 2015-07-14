@@ -32,23 +32,26 @@ public class ProductService implements IProductService{
 		this.productDao = productDao;
 	}
 
+	public Product getLatesProduct(int newProductId)
+	{
+		return productDao.loadLatestProduct(newProductId);
+	}
 
-	@Override
 	public  List<Product> getFeaturedProducts(){
 		return productDao.getFeaturedProducts();
 	}
 	
-	@Override
+	
 	public  List<Product> getRelatedProducts(){
 		return productDao.getRelatedProducts();
 	}
 
-	@Override
+	
 	public Product getProduct(Long productId) {
 		return productDao.getProduct( productId);
 	}
 
-	@Override
+	
 	public int claculateRatings(Product product) {
 		int ratingSum = 0;
 		for (Review review : product.getReviews()) {

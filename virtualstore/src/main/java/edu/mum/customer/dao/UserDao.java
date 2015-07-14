@@ -26,13 +26,13 @@ public class UserDao implements IUserDao {
 		this.sessionFactory = sessionFactory;
 	}
 
-	public void saveUser(User user, UserProfile userProfile) {
+	public void saveUser(User user, UserProfile userProfile,String roleType) {
 		
 		
 		sessionFactory.getCurrentSession().save(user);
 		userProfile.setId(user.getId());
 		sessionFactory.getCurrentSession().persist(userProfile);
-		UserRole userRole=new UserRole(user.getUsername(),RoleType.ROLE_USER);
+		UserRole userRole=new UserRole(user.getUsername(),roleType);
 		sessionFactory.getCurrentSession().persist(userRole);
 
 		

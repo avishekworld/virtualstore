@@ -20,6 +20,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import edu.mum.admin.domain.RoleType;
+import edu.mum.admin.domain.UserRole;
 import edu.mum.customer.domain.User;
 import edu.mum.customer.domain.UserProfile;
 import edu.mum.product.domain.Catagory;
@@ -247,13 +249,29 @@ public class ProductController {
 	
     /*Avishek*/
     @RequestMapping(value = "/product", method = RequestMethod.GET)
-    public String getAll(Model model) {
+    public String getAll(Model model,HttpServletRequest request) {
     	
-    	List<Catagory> catagories=productService.getProductCategories();
     	
-    	model.addAttribute("catagories", catagories);
+		if( request.getSession().getAttribute("islogged") != null && request.getSession().getAttribute("islogged").equals("true")){
+			
+			UserRole userRole=(UserRole)request.getSession().getAttribute("userRole");
+			
+			if(userRole.isAdmin())
+			{
+				model.addAttribute("pageTitle", "Add Product");
+				List<Catagory> catagories=productService.getProductCategories();
+		    	
+		    	model.addAttribute("catagories", catagories);
+		    	
+				return "product";
+			}
+			
+		}
+		
+		
+		return "redirect:/home";
     	
-        return "product";
+
     }
 	
 	@RequestMapping(value="/product", method=RequestMethod.POST)

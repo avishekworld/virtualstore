@@ -11,7 +11,7 @@ import edu.mum.customer.domain.UserProfile;
 @Transactional(propagation=Propagation.REQUIRED)
 public interface IUserService {
 	
-	public void registerUser(User user, UserProfile userProfile);
+	public void registerUser(User user, UserProfile userProfile, String roleType);
 	public User getUser(Long userId);
 	public UserRole getUserRole(Long userId);
 	public User getUserByUsername(String username);

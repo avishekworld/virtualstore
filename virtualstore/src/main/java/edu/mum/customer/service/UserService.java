@@ -21,8 +21,8 @@ public class UserService implements IUserService {
 		this.userDao = userDao;
 	}
 
-	public void registerUser(User user, UserProfile userProfile) {
-		userDao.saveUser(user, userProfile);
+	public void registerUser(User user, UserProfile userProfile,String roleType) {
+		userDao.saveUser(user, userProfile,roleType);
 		
 	}
 	

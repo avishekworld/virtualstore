@@ -6,7 +6,7 @@
 <%
 	if( request.getSession().getAttribute("islogged") != null && request.getSession().getAttribute("islogged").equals("true")){
 %>		
-	<li style="display: inline;  margin-left: 15px;">Welcome <a href="/virtualstore/profile/${ userProfile.id}">${userProfile.firstName}</a></li>
+	<li style="display: inline;  margin-left: 15px;">Welcome <a href="/virtualstore/profile">${userProfile.firstName}</a></li>
 	<li style="display: inline;  margin-left: 15px;"><a href="/virtualstore/shoppingCart">Your Cart</a></li>
 	
 <% 	

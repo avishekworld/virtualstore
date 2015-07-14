@@ -11,7 +11,7 @@ import edu.mum.customer.domain.UserProfile;
 @Transactional(propagation=Propagation.REQUIRED)
 public interface IUserDao {
 	
-	public void saveUser(User user,UserProfile userProfile);
+	public void saveUser(User user,UserProfile userProfile,String roleType);
 	public User getUser(Long userId);
 	public UserRole loadUserRole(Long userId);
 	public User getUserByUsername(String username);

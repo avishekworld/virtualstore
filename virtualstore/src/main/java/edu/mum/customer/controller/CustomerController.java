@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
 import edu.mum.admin.domain.PaymentResponse;
+import edu.mum.admin.domain.RoleType;
 import edu.mum.admin.domain.UserRole;
 import edu.mum.admin.domain.Utilities;
 import edu.mum.customer.dao.UserDao;
@@ -46,7 +47,7 @@ public class CustomerController {
 		
 		userProfile.setBillingAddress(billingAddress);
 		userProfile.setShippingAddress(shippingAddress);
-		userService.registerUser(user, userProfile);
+		userService.registerUser(user, userProfile,RoleType.ROLE_USER);
 		return "redirect:/login";
 	}
 	
@@ -62,7 +63,7 @@ public class CustomerController {
 		
 		userProfile.setBillingAddress(billingAddress);
 		userProfile.setShippingAddress(shippingAddress);
-		userService.registerUser(user, userProfile);
+		userService.registerUser(user, userProfile,RoleType.ROLE_USER);
 		return "redirect:/shippingAndPayment";
 	}
 	
@@ -95,6 +96,16 @@ public class CustomerController {
 		}
 		
 		return "redirect:/home";
+	}
+	
+	@RequestMapping(value="/profile", method=RequestMethod.GET)
+	public String userProfile( HttpServletRequest request) {
+
+		if( request.getSession().getAttribute("islogged") != null &&  request.getSession().getAttribute("islogged").equals("true")){
+			return "profile";
+		}
+
+		return "/login";
 	}
 	
 	@RequestMapping(value="/logout")
@@ -186,5 +197,11 @@ public class CustomerController {
 		
 		return "addpayment";
 	}
+
+	public IUserService getUserService() {
+		return userService;
+	}
+	
+	
 
 }

@@ -11,4 +11,6 @@ public interface IUserDao {
 	
 	public void saveUser(User user,UserProfile userProfile);
 	public User getUser(Long userId);
+	public User getUserByUsername(String username);
+	public UserProfile getUserProfileByUserId(Long id);
 }

@@ -12,8 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.mysql.jdbc.Util;
 
 import edu.mum.admin.domain.Utilities;
+import edu.mum.customer.domain.UserProfile;
 import edu.mum.product.domain.Catagory;
 import edu.mum.product.domain.Product;
+import edu.mum.product.domain.ProductInventory;
 import edu.mum.product.domain.ProductMedia;
 
 @Transactional(propagation=Propagation.REQUIRED)
@@ -66,6 +68,14 @@ public class ProductDao implements IProductDao {
 	@Override
 	public Product getProduct(Long productId) {
 		return (Product) sessionFactory.getCurrentSession().get( Product.class, productId);
+	}
+
+	@Override
+	public ProductInventory getProductInventoryByProductId(Long productId) {
+		String qString = "FROM ProductInventory PI WHERE PI.product.id=:PID";
+		Query q = sessionFactory.getCurrentSession().createQuery(qString);
+		q.setParameter("PID", productId);
+		return ( ProductInventory)q.uniqueResult();
 	}
 
 }

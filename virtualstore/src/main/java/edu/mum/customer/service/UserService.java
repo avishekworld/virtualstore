@@ -19,8 +19,6 @@ public class UserService implements IUserService {
 		this.userDao = userDao;
 	}
 
-
-
 	public void registerUser(User user, UserProfile userProfile) {
 		userDao.saveUser(user, userProfile);
 		
@@ -30,4 +28,15 @@ public class UserService implements IUserService {
 		return userDao.getUser(userId);
 	}
 
+	@Override
+	public User getUserByUsername(String username) {
+		return userDao.getUserByUsername( username);
+	}
+
+	@Override
+	public UserProfile getUserProfileByUserId(Long id) {
+		return userDao.getUserProfileByUserId(id);
+	}
+	
+	
 }

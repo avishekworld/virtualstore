@@ -7,14 +7,12 @@ if( request.getSession().getAttribute("islogged") != null && request.getSession(
 }	
 %>
 
-
+<%@include file="includes/mainNav.jsp" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
-<%--     <link href="<c:url value="css/main.css" />" rel="stylesheet"> --%>
-    <link href="css/main.css" rel="stylesheet">
     <title>User Registration</title>
         <style type="text/css">
  
@@ -35,13 +33,9 @@ if( request.getSession().getAttribute("islogged") != null && request.getSession(
  
         </style>
     </head>
-    
     <body>
-    
-    <%@include file="includes/mainNav.jsp" %>
-    
         <div id="container">
-            <form action="registration" method="post">
+            <form action="registrationAtCheckout" method="post">
                 <h1>Registration</h1>
                 <div class="line"><label for="username">Username *: </label><input type="text" id="username" value = "someone"name="username" /></div>
                 <div class="line"><label for="pwd">Password *: </label><input type="password" id="password" name = "password" value="123456" /></div>

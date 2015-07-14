@@ -1,19 +1,81 @@
 @CHARSET "ISO-8859-1";
 
-section.mainSection{
-	border: 1px solid red;
+/* HEADER */
+
+section.mainNav{
+	border: 2px solid red;
+	width: 100%;
+}
+
+section.mainNav div.links{
+	
+	border: 2px solid yellow;
+	//background: black;
+	width: 70%;
 	display: inline-block;
 }
 
-section.mainSection .featuredProduct{
-	border: 1px solid green;
+section.mainNav div.links ul li a{
+	font-size: xx-large;
+}
+
+section.mainNav div.search{
 	
+	border: 2px solid yellow;
+	//background: gray;
+	width: 20%;
+	//float: right;
+	display: inline-block;
+	vertical-align: top;
+	margin-left: 15px;
+	
+}
+section.mainNav div.search input:FIRST-CHILD{
+	//margin-top: 10px;
+	width: 60%; 
+	vertical-align: middle;
+	padding-top: 10px;
+	//height: 20%;
+}
+
+/*
+Main section and right section
+*/
+section.mainSection{
+	border: 1px solid red;
+	display: inline-block;
+	width: 70%;
+	margin-left: 3%;
+	
+}
+
+section.mainSection div.featuredProduct{
+	border: 1px solid green;
+	width: 30%;
+	margin-left: 2%;
+	margin-top: 10px;
+	margin-bottom: 5px;
+	display: inline-block;
+	
+}
+
+div.featuredProductImageDiv{
+	border: 2px solid gray;
+}
+
+div.featuredProductLinkDetails, div.featuredProductLinkAdd{
+	border: 1px dashed blue;
+	text-align: center;
+	font-size: large;
+}
+
+div.featuredProductLinkDetails a, div.featuredProductLinkAdd a{
+	font-size: large;
 }
 
 img.featuredProductImage{
 	width: 200px;
 	height: 200px;
-	
 }
 
 
@@ -22,5 +84,103 @@ righSection
 */
 section.rightSection{
 	border: 1px solid blue;
+	width: 20%;
+	float: right;
+	margin-right: 3%;
 	
+}
+
+div.relatedProduct{
+	margin-top: 10px;
+}
+
+section.rightSection img{
+	width: 80%;
+}
+
+section.rightSection div.relatedProductLink{
+	border: 1px dashed blue;
+	text-align: center;	
+}
+section.rightSection a{
+	font-size: large;
+}
+
+
+/*
+Footer
+*/
+
+section.footerSection{
+	clear: both;
+	border: 2px solid blue;
+}
+
+
+/* LOGiN PAGE*/
+div.signin{
+	border: 1px solid red;
+	width: 50%;
+	margin-left: 30%;
+	margin-top: 3%;
+}
+
+/* shoppingCart*/
+div.itemImage{
+	border: 1px solid red;
+	width: 30%;
+	display: inline-block;
+}
+
+div.details{
+	border: 1px solid green;
+	width: 20%;
+	display: inline-block;
+	vertical-align: top;
+	margin-top: 5%;
+}
+
+div.price{
+	border: 1px solid gray;
+	width: 10%;
+	display: inline-block;
+	vertical-align: top;
+	margin-top: 5%;
+
+}
+
+div.quantityInShoppingCart{
+	border: 1px solid blue;
+	width: 30%;
+	display: inline-block;
+		vertical-align: top;
+	margin-top: 5%;
+	
+}
+
+div.subTotal{
+	border: 1px solid blue;
+	width: 30%;
+	display: inline-block;
+	margin-left: 30%;
+	display: inline-block;
+	font-size:x-large;
+}
+
+div.checkout{
+	border: 1px solid blue;
+	width: 30%;
+	display: inline-block;
+	//margin-left: 50%;
+	display: inline-block;
+	 
+}
+
+div.checkout a{
+	font-size: x-large;	 
+	text-decoration: none;
+}
+div.checkout a:hover{
+	font-size: x-large;
+	color: blue;	 
 }

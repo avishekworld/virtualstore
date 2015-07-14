@@ -1,19 +1,34 @@
-<section>
+<section class="mainNav">
+<div class="links">
 	<ul style="display: inline; margin-left: 15px; font-size: large;">
 		<li style="display: inline;  margin-left: 15px;"><a href="http://localhost:8080/virtualstore/home">Home</a></li>
-		
-		<sec:authorize access="hasRole('ROLE_PRODUCT_OWNER')" >
-        	<li style="display: inline;  margin-left: 15px;"><a href="http://localhost:8080/MumScrum/productBacklogCreate">Create Product Backlog</a></li>
-        	<li style="display: inline;  margin-left: 15px;"><a href="http://localhost:8080/MumScrum/productBacklogList/1"> List of product Backlogs</a></li>	
-   		 </sec:authorize>
-		
-		<sec:authorize access="hasRole('ROLE_SCRUM_MASTER')" >
-        	<li style="display: inline;  margin-left: 15px;"><a href="http://localhost:8080/MumScrum/releaseBacklogList/1"> List of product Backlogs</a></li>	
-   		 </sec:authorize>
-				
+
+<%
+	if( request.getSession().getAttribute("islogged") != null && request.getSession().getAttribute("islogged").equals("true")){
+%>		
+	<li style="display: inline;  margin-left: 15px;">Welcome ${userProfile.firstName }</li>
+	<li style="display: inline;  margin-left: 15px;"><a href="/virtualstore/shoppingCart">Your Cart</a></li>
+	<li style="display: inline;  margin-left: 15px;"><a href="/virtualstore/profile/${ userProfile.id}">Your Profile</a></li>
+	
+<% 	
+	}
+// 	else{
+// 		//user is not logged in
+// 		String site = new String("http://localhost:8080/virtualstore/login");
+// 		response.sendRedirect( site);
+// 	}
+	
+%>		
+		<li style="display: inline;  margin-left: 15px;"><a href="/virtualstore/registration">Sign up</a></li>
 		<li style="display: inline;  margin-left: 15px;"><a href="/virtualstore/login">Login</a></li>
-		 <li style="display: inline;  margin-left: 15px;"><a href="/virtualstore/home/j_spring_security_logout">logout</a></li>
+		<li style="display: inline;  margin-left: 15px;"><a href="/virtualstore/logout">Logout</a></li>
 	</ul>
+</div>
+<div class="search">
+	<form action="search" >
+		<input type="text" placeholder="Search for products"/>
+		<input type="submit" value="Serch" />
+	</form>
+</div>
 </section>
-<br>
-<br>
+<div style="clear: both;"></div>

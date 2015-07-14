@@ -1,7 +1,4 @@
 <%@page import="org.springframework.context.annotation.Import"%>
-<%@page import="java.util.Date"%>
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="java.text.DateFormat"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
@@ -9,9 +6,13 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<%@page import="java.util.Date"%>
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="java.text.DateFormat"%>
+<%-- <%@page import="java.util.Date"%> --%>
+<%-- <%@page import="java.text.SimpleDateFormat"%> --%>
+<%-- <%@page import="java.text.DateFormat"%> --%>
+<%-- <%@page import="java.util.Date"%> --%>
+<%-- <%@page import="java.text.SimpleDateFormat"%> --%>
+<%-- <%@page import="java.text.DateFormat"%> --%>
+
 
 
 <!DOCTYPE>
@@ -22,22 +23,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Bootstrap -->
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<link href="<c:url value="/css/main.css" />" rel="stylesheet">
+<link href="<c:url value="css/main.css" />" rel="stylesheet">
+
 
 <script src="bootstrap/js/respond.js"></script>
     
 <title>${pageTitle }</title>
 </head>
-<section class="headerSection">
-	<div class="headerLogo">
-<!--		<div class="headerImage"><img alt="Logo" src=" out.println( Constants.getResourceURL() + "Logo.png"); %>"></div>-->
-	</div>
+
+<%-- <section class="headerSection"> --%>
+<!-- 	<div class="headerLogo"> -->
+<!-- 	<div class="headerImage"><img alt="Logo" src=" out.println( Constants.getResourceURL() + "Logo.png"); %>"></div>
+<!-- 	</div> -->
 	
-	<div class="headerInfo">
-		<div class="infoAndImage">
-			<!--<div class="userImage"><img alt="User Image" src="/..images/wahid.jpg"></div>
-			<div class="name"><b>Wahid-Change</b></div>-->
-		</div>
-	</div>
-</section>
+<!-- 	<div class="headerInfo"> -->
+<!-- 		<div class="infoAndImage"> -->
+<!-- 			<!--<div class="userImage"><img alt="User Image" src="/..images/wahid.jpg"></div>
+<!-- 			<div class="name"><b>Wahid-Change</b></div>--> 
+<!-- 		</div> -->
+<!-- 	</div> -->
+<%-- </section> --%>
 

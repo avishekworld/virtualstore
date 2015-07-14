@@ -9,8 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 
+
 import edu.mum.product.domain.Catagory;
 import edu.mum.product.domain.Product;
+import edu.mum.product.domain.ProductInventory;
 
 @Transactional(propagation=Propagation.REQUIRED)
 public interface IProductDao {
@@ -19,6 +21,7 @@ public interface IProductDao {
 	public  List<Product> getFeaturedProducts();
 	public  List<Product> getRelatedProducts();
 	public Product getProduct(Long productId);
+	public ProductInventory getProductInventoryByProductId(Long productId);
 
 
 }

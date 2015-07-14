@@ -9,7 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import edu.mum.product.dao.IProductDao;
 import edu.mum.product.domain.Catagory;
+import edu.mum.product.domain.Order;
+import edu.mum.product.domain.OrderLine;
 import edu.mum.product.domain.Product;
+import edu.mum.product.domain.ProductInventory;
 import edu.mum.review.domain.Review;
 
 @Transactional(propagation=Propagation.REQUIRES_NEW)
@@ -67,6 +70,23 @@ public class ProductService implements IProductService{
 		productDao.saveProduct(product, category,fileName);
 
 		
+	}
+
+
+	@Override
+	public float claculateSubtotatl(Order order) {
+		
+		float sum = 0.0F;
+		for (OrderLine orderLine : order.getOrderLines()) {
+			sum += orderLine.getQuantity() * orderLine.getProduct().getPrice();
+		}
+		return sum;
+	}
+
+
+	@Override
+	public ProductInventory getProductInventoryByProductId(Long productId) {
+		return productDao.getProductInventoryByProductId(productId);
 	}
 
 }

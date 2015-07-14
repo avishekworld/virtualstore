@@ -11,5 +11,7 @@ public interface IUserService {
 	
 	public void registerUser(User user, UserProfile userProfile);
 	public User getUser(Long userId);
+	public User getUserByUsername(String username);
+	public UserProfile getUserProfileByUserId(Long id);
 
 }

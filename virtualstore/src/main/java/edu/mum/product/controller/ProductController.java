@@ -3,6 +3,7 @@ package edu.mum.product.controller;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,10 +18,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import edu.mum.customer.domain.User;
+import edu.mum.customer.domain.UserProfile;
 import edu.mum.product.domain.Catagory;
 import edu.mum.product.domain.Order;
 import edu.mum.product.domain.OrderLine;
 import edu.mum.product.domain.Product;
+import edu.mum.product.domain.ProductInventory;
 import edu.mum.product.service.IProductService;
 
 @Controller
@@ -42,9 +45,25 @@ public class ProductController {
     public String showHome(Model model, HttpServletRequest request) {
         
 		
-		model.addAttribute("pageTitle", "Home Page");
-		model.addAttribute("featuredProducts", productService.getFeaturedProducts());
+		model.addAttribute("pageTitle", "Welcome to Virtual Store");
+		List<Product> featuredProducts = productService.getFeaturedProducts();
+		
+		for( int i = 0 ; i < featuredProducts.size(); i++) {
+			ProductInventory pInventory = productService.getProductInventoryByProductId( featuredProducts.get(i).getId() );
+			featuredProducts.get(i).setProductInventory(pInventory);
+			if( pInventory == null){
+				System.out.println( " NO    pInventory Quantity : " );
+			}else{
+				System.out.println( "pInventory Quantity : "+pInventory.getQuantity() );
+			}
+				
+		}
+		model.addAttribute("featuredProducts", featuredProducts);
 		model.addAttribute("relatedProducts", productService.getRelatedProducts());
+		
+		
+		
+		//System.out.println( featuredProducts.get(0).getProductInventory().getQuantity() );
 		
 		return "home";
     }
@@ -54,9 +73,16 @@ public class ProductController {
         
 		model.addAttribute("pageTitle", "Product Details Page");
 		Product product = productService.getProduct( productId);
+		ProductInventory productInventory = productService.getProductInventoryByProductId( product.getId());
+		product.setProductInventory( productInventory);
 		int rating = productService.claculateRatings( product);
 		model.addAttribute("product", product);
-		model.addAttribute("rating", rating);
+		if( rating <= 0){
+			model.addAttribute("rating", "N/A");
+		}else{
+			model.addAttribute("rating", rating);
+		}
+		
 		
 		return "productDetails";
     }
@@ -105,8 +131,9 @@ public class ProductController {
 				request.getSession().setAttribute("order", tempOrder);
 			}
 		}
-		
+		request.getSession().setAttribute("subtotatl",  productService.claculateSubtotatl(tempOrder) );
 		return "shoppingCart";
+		//return "redirect:/shoppingCart";
     }
 	
 	@RequestMapping(value = "/RemoveFromShoppingCart/{productId}", method = RequestMethod.GET)
@@ -127,6 +154,7 @@ public class ProductController {
 			//tempOrder.getOrderLines().remove( productService.getProduct(productId) );
 			tempOrder.getOrderLines().remove(index);
 			request.getSession().setAttribute("order", tempOrder);
+			request.getSession().setAttribute("subtotatl",  productService.claculateSubtotatl(tempOrder) );
 		}
 		return "shoppingCart";
     }
@@ -150,6 +178,7 @@ public class ProductController {
 			//tempOrder.getOrderLines().remove( productService.getProduct(productId) );
 			tempOrder.getOrderLines().get(index).setQuantity( quantity);
 			request.getSession().setAttribute("order", tempOrder);
+			request.getSession().setAttribute("subtotatl",  productService.claculateSubtotatl(tempOrder) );
 		}
 		System.out.println("CHANGE QUANTITY-------------------------");
 		return "redirect:/shoppingCart";
@@ -160,10 +189,39 @@ public class ProductController {
 		
 		model.addAttribute("pageTitle", "Your Cart");
 		
-		System.out.println("HERERRRRRRRRRRRRRRRRRRRRRRRR");
+		//System.out.println("HERERRRRRRRRRRRRRRRRRRRRRRRR");
 		return "shoppingCart";
     }
     
+	
+	@RequestMapping(value = "/checkOut")
+    public String checkout(Model model, HttpServletRequest request) {
+		
+		model.addAttribute("pageTitle", "Check out");
+		if( request.getSession().getAttribute("islogged") != null ){
+			return "shipping";
+		}
+		
+		
+		return "signinORsignup";
+    }
+	
+	@RequestMapping(value = "/shipping")
+    public String shippingAndPayment(Model model, HttpServletRequest request) {
+		
+		model.addAttribute("pageTitle", "Check out");
+		
+		UserProfile userProfile = (UserProfile)request.getSession().getAttribute("userProfile");
+		
+		
+//		if( request.getSession().getAttribute("islogged") != null ){
+//			return "shippingAndPayment";
+//		}
+//		
+		
+		return "shipping";
+    }
+	
     /*Avishek*/
     @RequestMapping(value = "/product", method = RequestMethod.GET)
     public String getAll(Model model) {

@@ -13,6 +13,7 @@ import edu.mum.product.domain.Order;
 import edu.mum.product.domain.OrderLine;
 import edu.mum.product.domain.Product;
 import edu.mum.product.domain.ProductInventory;
+import edu.mum.product.domain.ProductJsonObject;
 import edu.mum.review.domain.Review;
 
 @Transactional(propagation=Propagation.REQUIRES_NEW)
@@ -35,23 +36,26 @@ public class ProductService implements IProductService{
 		this.productDao = productDao;
 	}
 
+	public ProductJsonObject getLatesProduct(int newProductId)
+	{
+		return productDao.loadLatestProduct(newProductId);
+	}
 
-	@Override
 	public  List<Product> getFeaturedProducts(){
 		return productDao.getFeaturedProducts();
 	}
 	
-	@Override
+	
 	public  List<Product> getRelatedProducts(){
 		return productDao.getRelatedProducts();
 	}
 
-	@Override
+	
 	public Product getProduct(Long productId) {
 		return productDao.getProduct( productId);
 	}
 
-	@Override
+	
 	public int claculateRatings(Product product) {
 		int ratingSum = 0;
 		for (Review review : product.getReviews()) {
@@ -66,8 +70,8 @@ public class ProductService implements IProductService{
 	
 	
 
-	public void registerProduct(Product product, Catagory category,String fileName) {
-		productDao.saveProduct(product, category,fileName);
+	public void registerProduct(Product product, int catagoryId,int quantity,String fileName) {
+		productDao.saveProduct(product, catagoryId,quantity,fileName);
 
 		
 	}
@@ -88,5 +92,13 @@ public class ProductService implements IProductService{
 	public ProductInventory getProductInventoryByProductId(Long productId) {
 		return productDao.getProductInventoryByProductId(productId);
 	}
+	
+	public  List<Catagory> getProductCategories()
+	{
+		return productDao.getCategories();
+	}
+
+
+
 
 }

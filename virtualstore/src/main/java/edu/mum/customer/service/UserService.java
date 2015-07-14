@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import edu.mum.customer.dao.IUserDao;
+import edu.mum.customer.domain.PaymentInfo;
 import edu.mum.customer.domain.User;
 import edu.mum.customer.domain.UserProfile;
 
@@ -26,6 +27,16 @@ public class UserService implements IUserService {
 	
 	public User getUser(Long userId) {
 		return userDao.getUser(userId);
+	}
+	
+	public PaymentInfo getPaymentInfo(Long paymentId)
+	{
+		return userDao.loadPaymentInfo(paymentId);
+	}
+	
+	public void addPayment(PaymentInfo paymentInfo)
+	{
+		userDao.savePayment(paymentInfo);
 	}
 
 	@Override

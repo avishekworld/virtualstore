@@ -2,6 +2,7 @@ package edu.mum.product.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale.Category;
 
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
@@ -16,6 +17,7 @@ import edu.mum.customer.domain.UserProfile;
 import edu.mum.product.domain.Catagory;
 import edu.mum.product.domain.Product;
 import edu.mum.product.domain.ProductInventory;
+import edu.mum.product.domain.ProductJsonObject;
 import edu.mum.product.domain.ProductMedia;
 
 @Transactional(propagation=Propagation.REQUIRED)
@@ -27,12 +29,38 @@ public class ProductDao implements IProductDao {
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-
-	public void saveProduct(Product product, Catagory category,String fileName) {
+	
+	public ProductJsonObject loadLatestProduct(int newProductId)
+	{
+		String qString = "FROM Product P ORDER BY P.id DESC";
+		Query q = sessionFactory.getCurrentSession().createQuery(qString);
+		q.setMaxResults(newProductId);
+		List<Product> newProducts =  q.list();
 		
-		product.setCatagory(category);
+		Product latestProduct=newProducts.get(newProductId-1);
+		
+		String productDefaultImage="none";
+		
+		if(latestProduct.getProductMedias().size()>0)
+		{
+			productDefaultImage=latestProduct.getProductMedias().get(0).getUrl();
+		}
+		
+		return new ProductJsonObject(latestProduct.getId(), latestProduct.getName(), latestProduct.getPrice(), latestProduct.getProductInventory().getQuantity(), productDefaultImage);
+	}
+
+	public void saveProduct(Product product, int catagoryId,int quantity,String fileName) {
+		
+		
+		Catagory catagory=getCategory(catagoryId);
+		
+		ProductInventory productInventory=new ProductInventory(quantity,product);
+		
+		product.setCatagory(catagory);
 		
 		sessionFactory.getCurrentSession().save(product);
+		
+		sessionFactory.getCurrentSession().save(productInventory);
 		
 		if(fileName!=null)
 		{
@@ -45,7 +73,15 @@ public class ProductDao implements IProductDao {
 		
 	}
 	
-	@Override
+	public  Catagory getCategory(int catagoryId)
+	{
+		String qString = "FROM Catagory c where c.id="+catagoryId;
+		Query q = sessionFactory.getCurrentSession().createQuery(qString);
+		Catagory catagory=(Catagory) q.list().get(0);
+		return catagory;
+	}
+	
+
 	public List<Product> getFeaturedProducts() {
 		String qString = "FROM Product P ORDER BY P.id DESC";
 		Query q = sessionFactory.getCurrentSession().createQuery(qString);
@@ -59,15 +95,22 @@ public class ProductDao implements IProductDao {
 		return null;
 	}//End
 
-	@Override
+
 	public List<Product> getRelatedProducts() {
 		
 		return getFeaturedProducts();
 	}
 
-	@Override
+	
 	public Product getProduct(Long productId) {
 		return (Product) sessionFactory.getCurrentSession().get( Product.class, productId);
+	}
+	
+	public  List<Catagory> getCategories()
+	{
+		String qString = "FROM Catagory C ";
+		Query q = sessionFactory.getCurrentSession().createQuery(qString);
+		return q.list();
 	}
 
 	@Override

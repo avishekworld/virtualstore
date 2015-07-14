@@ -5,10 +5,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import edu.mum.customer.domain.User;
 import edu.mum.customer.domain.UserProfile;
+import edu.mum.product.domain.Catagory;
 
 @Transactional(propagation=Propagation.REQUIRED)
 public interface IAdminDao {
 	
 	public void saveAdmin(User user);
+	public void saveCategory(Catagory category);
 
 }

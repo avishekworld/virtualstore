@@ -3,6 +3,7 @@ package edu.mum.customer.dao;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import edu.mum.customer.domain.PaymentInfo;
 import edu.mum.customer.domain.User;
 import edu.mum.customer.domain.UserProfile;
 
@@ -13,4 +14,7 @@ public interface IUserDao {
 	public User getUser(Long userId);
 	public User getUserByUsername(String username);
 	public UserProfile getUserProfileByUserId(Long id);
+	public void savePayment(PaymentInfo paymentInfo);
+	public PaymentInfo loadPaymentInfo(Long paymentId);
+	
 }

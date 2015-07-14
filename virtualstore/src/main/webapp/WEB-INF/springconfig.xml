@@ -30,9 +30,6 @@
 	  		<property name="dataSource" ref="dataSource"/>
 	  </bean>
 
-	<bean id="testUserService" class="edu.mum.service.TestUserService" />
-	<bean id="testUserDAO" class="edu.mum.dao.TestUserDAO" />
-
 	
 	<bean id="userService" class="edu.mum.customer.service.UserService" />
 	<bean id="userDao" class="edu.mum.customer.dao.UserDao" />

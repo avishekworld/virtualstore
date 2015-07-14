@@ -3,6 +3,7 @@ package edu.mum.customer.service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import edu.mum.customer.domain.PaymentInfo;
 import edu.mum.customer.domain.User;
 import edu.mum.customer.domain.UserProfile;
 
@@ -13,5 +14,7 @@ public interface IUserService {
 	public User getUser(Long userId);
 	public User getUserByUsername(String username);
 	public UserProfile getUserProfileByUserId(Long id);
+	public PaymentInfo getPaymentInfo(Long paymentId);
+	public void addPayment(PaymentInfo paymentInfo);
 
 }

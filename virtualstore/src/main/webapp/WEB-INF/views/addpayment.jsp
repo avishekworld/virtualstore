@@ -1,11 +1,6 @@
-<%@include file="includes/header.jsp" %>
-<%@include file="includes/mainNav.jsp" %>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!doctype html>
 <html>
     <head>
-    	<title>Admin Registration</title>
         <style type="text/css">
  
             body {font-family:Arial, Sans-Serif;}
@@ -27,10 +22,15 @@
     </head>
     <body>
         <div id="container">
-            <form action="createadmin" method="post">
-                <h1>Admin Registration</h1>
-                <div class="line"><label for="username">Username *: </label><input type="text" id="username" value = "someone"name="username" /></div>
-                <div class="line"><label for="pwd">Password *: </label><input type="password" id="password" name = "password" value="123456" /></div>
+            <form action="payment" method="post">
+            
+                <h1>Add Payment</h1>
+                
+                <div class="line">Payment Name : <input type="text" id="paymentName" name="paymentName" /></div>
+
+                <div class="line">Card Number : <input type="text" id="cardNumber" name="cardNumber" /></div>
+                
+                <div class="line">Expire Date : <input type="date" id="expireDate" name="expireDate" min="2015-7-14" /></div>
 
                 <div class="line submit"><input type="submit" value="Submit" /></div>
  

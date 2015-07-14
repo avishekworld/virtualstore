@@ -1,11 +1,8 @@
 <%@include file="includes/header.jsp" %>
 <%@include file="includes/mainNav.jsp" %>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!doctype html>
 <html>
     <head>
-    	<title>Admin Registration</title>
         <style type="text/css">
  
             body {font-family:Arial, Sans-Serif;}
@@ -27,10 +24,11 @@
     </head>
     <body>
         <div id="container">
-            <form action="createadmin" method="post">
-                <h1>Admin Registration</h1>
-                <div class="line"><label for="username">Username *: </label><input type="text" id="username" value = "someone"name="username" /></div>
-                <div class="line"><label for="pwd">Password *: </label><input type="password" id="password" name = "password" value="123456" /></div>
+            <form action="category" method="post">
+                <h1>Add Category</h1>
+                
+
+                <div class="line">Category Name: <input type="text" id="catagoryName" name="catagoryName"/></div>
 
                 <div class="line submit"><input type="submit" value="Submit" /></div>
  

@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import edu.mum.admin.dao.IAdminDao;
 import edu.mum.customer.dao.IUserDao;
 import edu.mum.customer.domain.User;
+import edu.mum.product.domain.Catagory;
 
 @Transactional(propagation=Propagation.REQUIRED)
 public class AdminService implements IAdminService{
@@ -30,6 +31,11 @@ public class AdminService implements IAdminService{
 		
 		adminDao.saveAdmin(user);
 		
+	}
+	
+	public void registerCategory(Catagory category) {
+		adminDao.saveCategory(category);
+
 	}
 
 }

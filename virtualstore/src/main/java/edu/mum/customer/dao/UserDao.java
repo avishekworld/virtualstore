@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import edu.mum.admin.domain.RoleType;
 import edu.mum.admin.domain.UserRole;
+import edu.mum.customer.domain.PaymentInfo;
 import edu.mum.customer.domain.User;
 import edu.mum.customer.domain.UserProfile;
 import edu.mum.product.domain.Product;
@@ -62,6 +63,17 @@ public class UserDao implements IUserDao {
 		Query q = sessionFactory.getCurrentSession().createQuery(qString);
 		q.setParameter("UPID", userid);
 		return (UserProfile)q.uniqueResult();
+	}
+	
+	public PaymentInfo loadPaymentInfo(Long paymentId)
+	{
+		return (PaymentInfo) sessionFactory.getCurrentSession().get( PaymentInfo.class, paymentId);
+	}
+	
+	public void savePayment(PaymentInfo paymentInfo)
+	{
+		sessionFactory.getCurrentSession().persist(paymentInfo);
+
 	}
 	
 }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -26,11 +27,19 @@ public class PaymentGateway {
 	@Autowired
     private IUserService userService;
 	
-	@RequestMapping(value="/rest/paymentrequest", method=RequestMethod.GET,headers = "Accept=application/json",produces = "application/json")
-	public @ResponseBody PaymentResponse getPaymentRequest()
+	@RequestMapping(value="/rest/paymentrequest/{paymentId}", method=RequestMethod.GET,headers = "Accept=application/json",produces = "application/json")
+	public @ResponseBody PaymentResponse getPaymentRequest(@PathVariable("paymentId") long paymentId,@RequestParam("amount") double amount)
 	{
+		PaymentInfo paymentInfo=userService.getPaymentInfo(paymentId);
 		
-			return new PaymentResponse("false", "no payment info", 0);
+		if(amount<500)
+		{
+			return new PaymentResponse("true", "charged", System.currentTimeMillis());
+		}
+		else 
+		{
+			return new PaymentResponse("false", "amount limit cross", 0);
+		}
 		
 	}
 	

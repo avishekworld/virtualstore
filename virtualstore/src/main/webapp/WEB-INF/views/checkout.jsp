@@ -25,8 +25,9 @@
         </style>
     </head>
     <body>
+    	<center><font size="12" color="green">${message}</font></center>
         <div id="container">
-        <h1>${message}</h1>
+        
         <form action="checkout" method="post"  >
            
                 <h1>Select Payment</h1>

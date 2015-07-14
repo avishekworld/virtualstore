@@ -73,16 +73,21 @@ public class CustomerController {
     public String doCheckout(Model model,@RequestParam("amount") double amount,@RequestParam("paymentId") long paymentId) {
     	
     	//UserProfile userProfile=(UserProfile) request.getSession().getAttribute("userprofile");
-    	
-		User user=userService.getUser(1L);
+
 		
 		PaymentInfo paymentInfo=userService.getPaymentInfo(paymentId);
 		
 		RestTemplate paymentRest=new RestTemplate();
 		
-		PaymentResponse paymentResponse = paymentRest.postForObject(Utilities.URL+"/rest/paymentrequest", paymentInfo, PaymentResponse.class);
-    	
-		model.addAttribute("message", paymentResponse.getMessage());
+		PaymentResponse paymentResponse = paymentRest.getForObject(Utilities.URL+"/rest/paymentrequest/"+paymentId+"?amount="+amount, PaymentResponse.class);
+		
+		//PaymentResponse paymentResponse = paymentRest.postForObject(Utilities.URL+"/rest/paymentrequest", paymentInfo, PaymentResponse.class);
+		User user=userService.getUser(1L);
+		
+		model.addAttribute("payments", user.getPaymentInfos());
+		
+		model.addAttribute("message", "Payment Status : "+paymentResponse.getPaymentSucess()+" - "+paymentResponse.getMessage());
+		
         return "checkout";
     }
 	

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import edu.mum.product.dao.IProductDao;
 import edu.mum.product.domain.Catagory;
 import edu.mum.product.domain.Product;
+import edu.mum.product.domain.ProductJsonObject;
 import edu.mum.review.domain.Review;
 
 @Transactional(propagation=Propagation.REQUIRES_NEW)
@@ -32,23 +33,26 @@ public class ProductService implements IProductService{
 		this.productDao = productDao;
 	}
 
+	public ProductJsonObject getLatesProduct(int newProductId)
+	{
+		return productDao.loadLatestProduct(newProductId);
+	}
 
-	@Override
 	public  List<Product> getFeaturedProducts(){
 		return productDao.getFeaturedProducts();
 	}
 	
-	@Override
+	
 	public  List<Product> getRelatedProducts(){
 		return productDao.getRelatedProducts();
 	}
 
-	@Override
+	
 	public Product getProduct(Long productId) {
 		return productDao.getProduct( productId);
 	}
 
-	@Override
+	
 	public int claculateRatings(Product product) {
 		int ratingSum = 0;
 		for (Review review : product.getReviews()) {
@@ -63,8 +67,8 @@ public class ProductService implements IProductService{
 	
 	
 
-	public void registerProduct(Product product, int catagoryId,String fileName) {
-		productDao.saveProduct(product, catagoryId,fileName);
+	public void registerProduct(Product product, int catagoryId,int quantity,String fileName) {
+		productDao.saveProduct(product, catagoryId,quantity,fileName);
 
 		
 	}

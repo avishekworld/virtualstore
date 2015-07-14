@@ -37,7 +37,7 @@ public class Product {
 	@ElementCollection(fetch=FetchType.EAGER)
 	private List<String> details = new ArrayList<String>();
 	
-	@OneToOne( mappedBy="product")
+	@OneToOne(cascade=CascadeType.ALL, mappedBy="product")
 	private ProductInventory productInventory;
 
 	@OneToOne

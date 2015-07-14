@@ -25,6 +25,14 @@ public class ProductInventory {
 	@JoinColumn(name="PRODUCT_ID")
 	private Product product;
 	
+	
+	
+	public ProductInventory(int quantity, Product product) {
+		this.quantity = quantity;
+		this.product = product;
+	}
+
+
 	public Product getProduct() {
 		return product;
 	}

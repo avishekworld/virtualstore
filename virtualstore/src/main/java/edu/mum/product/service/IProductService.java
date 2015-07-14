@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import edu.mum.product.domain.Product;
 import edu.mum.product.domain.Catagory;
+import edu.mum.product.domain.ProductJsonObject;
 
 @Transactional(propagation=Propagation.REQUIRES_NEW)
 public interface IProductService {
@@ -15,9 +16,9 @@ public interface IProductService {
 	public  List<Product> getRelatedProducts();
 	public Product getProduct(Long productId);
 	public int claculateRatings(Product product);
-	public void registerProduct(Product product, int catagoryId,String fileName);
+	public void registerProduct(Product product, int catagoryId,int quantity,String fileName);
 	public  List<Catagory> getProductCategories();
-	
+	public ProductJsonObject getLatesProduct(int newProductId);
 	
 
 

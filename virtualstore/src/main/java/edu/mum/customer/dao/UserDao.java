@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import edu.mum.admin.domain.RoleType;
 import edu.mum.admin.domain.UserRole;
+import edu.mum.customer.domain.PaymentInfo;
 import edu.mum.customer.domain.User;
 import edu.mum.customer.domain.UserProfile;
 
@@ -35,6 +36,12 @@ public class UserDao implements IUserDao {
 	public User getUser(Long userId) {
 		// TODO Auto-generated method stub
 		return (User) sessionFactory.getCurrentSession().get( User.class, userId);
+	}
+	
+	public void savePayment(PaymentInfo paymentInfo)
+	{
+		sessionFactory.getCurrentSession().persist(paymentInfo);
+
 	}
 	
 }

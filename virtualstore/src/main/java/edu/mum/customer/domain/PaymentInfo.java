@@ -1,5 +1,7 @@
 package edu.mum.customer.domain;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -10,6 +12,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.transaction.annotation.Transactional;
 
 @Entity
 @Table(name="PAYMENT_TABLE")
@@ -25,6 +31,10 @@ public class PaymentInfo {
 	
 	@Column(name="PAYMENT_CARD_NUMBER")
 	private String cardNumber;
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name="EXPIRY_DATE")
+	private Date expireDate;
 	
 	@ManyToOne
 	@JoinColumn(name="USER_ID")
@@ -72,6 +82,16 @@ public class PaymentInfo {
 	public void setCardNumber(String cardNumber) {
 		this.cardNumber = cardNumber;
 	}
+
+	public Date getExpireDate() {
+		return expireDate;
+	}
+
+	public void setExpireDate(Date expireDate) {
+		this.expireDate = expireDate;
+	}
+	
+	
 
 	
 }

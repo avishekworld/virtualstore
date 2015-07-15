@@ -55,7 +55,7 @@ public class ProductController {
 		model.addAttribute("pageTitle", "Home Page");
 		model.addAttribute("featuredProducts", productService.getFeaturedProducts());
 		model.addAttribute("relatedProducts", productService.getRelatedProducts());
-		System.out.println("\n\n\n\n------------ "+ productService.getFeaturedProducts().size());
+		//System.out.println("\n\n\n\n------------ "+ productService.getFeaturedProducts().size());
         return "home";
     }
 	
@@ -84,7 +84,7 @@ public class ProductController {
 		//System.out.println( featuredProducts.get(0).getProductInventory().getQuantity() );
 		
 
-		System.out.println("\n\n\n\n------------ "+ productService.getFeaturedProducts().size());
+		//System.out.println("\n\n\n\n------------ "+ productService.getFeaturedProducts().size());
 
 		return "home";
     }

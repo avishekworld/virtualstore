@@ -133,6 +133,7 @@ public class ProductController {
 			//Current user is hard cooded
 			User user = new User();
 			user.setId(1L);
+			
 			tempOrder.setUser( user );
 			
 			OrderLine orderLine = new OrderLine();
@@ -254,6 +255,19 @@ public class ProductController {
 		
 		return "shipping";
     }
+	
+	
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+    public String search(Model model, @RequestParam("searchedTerm") String searchedTerm, HttpServletRequest request) {
+		
+		model.addAttribute("pageTitle", "You Searched For ");
+		
+		List<Product> foundProducts =	productService.searchForProducts( searchedTerm);
+		//System.out.println( "\n\n\n\nYou searched for " + searchedTerm + " ---- "+ foundProducts.size());
+		model.addAttribute( "foundProducts", foundProducts);
+		return "searchPage";
+    }
+	
 	
     /*Avishek*/
     @RequestMapping(value = "/product", method = RequestMethod.GET)

@@ -24,6 +24,7 @@ public interface IProductService {
 	public  List<Catagory> getProductCategories();
 	public ProductJsonObject getLatesProduct(int newProductId);
 	public void modifyProduct(Product product) ;
+	public List<Product> searchForProducts(String searchedTerm);
 	
 
 

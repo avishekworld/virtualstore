@@ -14,7 +14,7 @@
 
 <h1>Login Page ${user.username}</h1>
 Sign in
-<form method="post" action="" >
+<form method="post" action="login" >
 User: <input name="username" />
 Pass: <input type="password" name="password">
 <br />

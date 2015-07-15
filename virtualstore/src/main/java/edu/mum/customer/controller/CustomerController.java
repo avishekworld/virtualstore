@@ -79,6 +79,7 @@ public class CustomerController {
 		return "/login";
 	}
 	
+	
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public String login( Model model, @RequestParam("username") String username,  
 					@RequestParam("password") String password, HttpServletRequest request) {
@@ -104,6 +105,8 @@ public class CustomerController {
 			model.addAttribute("message", "Login Failed");
 			return "login";
 		}
+		
+		//If session is set then change the user
 		
 		return "redirect:/home";
 	}

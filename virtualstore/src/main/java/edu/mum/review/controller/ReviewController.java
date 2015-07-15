@@ -1,6 +1,7 @@
 package edu.mum.review.controller;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,7 +34,13 @@ public class ReviewController {
 	public String getAll(@PathVariable("pid") Long pid, Model model) 
 	{
 		Product product = productService.getProduct(pid);
+		Double total_rating=reviewService.calculateProductRatings(product);
 		model.addAttribute("product",product);
+		model.addAttribute("all_reviews", reviewService.findByProduct(product));
+		model.addAttribute("pageTitle", "Review Page");
+		model.addAttribute("total_rating", total_rating);
+		model.addAttribute("total_rating_width", Math.round( (total_rating/5)*100  ) );
+	
 
 		return "review";
 	  }

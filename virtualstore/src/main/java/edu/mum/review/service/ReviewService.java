@@ -1,5 +1,7 @@
 package edu.mum.review.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +25,18 @@ public class ReviewService implements IReviewService {
 	public void addReview(Review review, User user) {
 		reviewDao.addReview( review, user);
 
+	}
+
+	@Override
+	public List<Review> findByProduct(Product product) {
+		// TODO Auto-generated method stub
+		return reviewDao.findByProduct(product);
+	}
+
+	@Override
+	public Double calculateProductRatings(Product product) {
+		// TODO Auto-generated method stub
+		return reviewDao.calculateProductRatings(product);
 	}
 
 }

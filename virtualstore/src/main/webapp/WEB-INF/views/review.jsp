@@ -1,10 +1,113 @@
-<%@include file="includes/header.jsp" %>
-<%@include file="includes/mainNav.jsp" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+
+<style>
+section.mainNav{
+	border: 2px solid red;
+	width: 100%;
+}
+
+section.mainNav div.links{
+	
+	border: 2px solid yellow;
+	//background: black;
+	width: 70%;
+	display: inline-block;
+}
+
+section.mainNav div.links ul li a{
+	font-size: xx-large;
+}
+
+section.mainNav div.search{
+	
+	border: 2px solid yellow;
+	//background: gray;
+	width: 20%;
+	//float: right;
+	display: inline-block;
+	vertical-align: top;
+	margin-left: 15px;
+	
+}
+section.mainNav div.search input:FIRST-CHILD{
+	//margin-top: 10px;
+	width: 60%; 
+	vertical-align: middle;
+	padding-top: 10px;
+	//height: 20%;
+}
+/*---------------*/
+
+section.mainSectionDetailsPage{
+	border: 2px solid red;
+}
+
+div.productThumbnails{
+	display:inline-block;
+	width: 7%;
+	margin-left: 2%; 
+	border: 1px solid green;
+}
+
+div.productThumbnails img{
+	width: 90%;
+	margin-top: 20px;
+}
+
+div.productThumbnails img:HOVER{
+	width: 300%;
+	margin-top: 20px;
+}
+
+
+div.productImageLarge{
+	display:inline-block;
+	width: 30%;
+	margin-left: 20%; 
+	border: 2px solid yellow;
+	height: 40%;
+	z-index: -1000;
+}
+
+div.productImageLarge img{
+	width: 95%;
+	height: 95%;
+	position: relative;
+	z-index: 1999;
+}
+
+
+div.productDetails{
+	display:inline-block;
+	width: 20%;
+	margin-left: 2%; 
+	border: 2px solid blue;
+	font-size: large;
+}
+
+div.shipping{
+	display:inline-block;
+	width: 10%;
+	margin-left: 2%; 
+	border: 2px solid green;
+}
+
+div.shipping a{
+	font-size: x-large;
+	text-decoration: none;
+	
+}
+
+div.shipping a:HOVER{
+	text-decoration: none;
+	color: blue;
+}
+</style>
+
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Product Review</title>
 <style  type="text/css">
@@ -60,10 +163,13 @@
 </style>
 </head>
 <body>
+
+<%@include file="includes/mainNav.jsp" %>
+
 <div id="container">
             <form action="/virtualstore/productR" method="post">
                 <h1>Product Review</h1>
-                <div class="line"><label for="product">${ product.name}</label></div>
+                <div class="line" ><label for="product"><a href="/virtualstore/productDetails/${product.id }"> ${ product.name}</a></label></div>
 
 <div class="line">
                 	<div class="rating">

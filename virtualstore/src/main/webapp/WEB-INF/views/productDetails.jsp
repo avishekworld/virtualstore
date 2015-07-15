@@ -119,6 +119,35 @@ div.shipping a:HOVER{
 	color: blue;
 }
 
+/*Imran*/
+.rating_bar {
+    /*this class creats 5 stars bar with empty stars */
+    /*each star is 16 px, it means 5 stars will make 80px together */
+    width: 80px;
+    /*height of empty star*/
+    height: 16px;
+    /*background image with stars */
+    background: url(../images/stars.png);
+    /*which will be repeated horizontally */
+    background-repeat: repeat-x;
+    /* as we are using sprite image, we need to position it to use right star, 
+    //0 0 is for empty */
+    background-position: 0 0;
+    /* align inner div to the left */
+    text-align: left;
+}
+.rating_show {
+    /* height of full star is the same, we won't specify width here */
+    height: 16px;
+    /* background image with stars */
+    background: url(../images/stars.png);
+    /* now we will position background image to use 16px from top, 
+    //which means use full stars */
+    background-position: 0 -16px;
+    /* and repeat them horizontally */
+    background-repeat: repeat-x;
+}
+
 </style>
     
 <title>${pageTitle }</title>
@@ -145,7 +174,12 @@ div.shipping a:HOVER{
 	</div>
 	
 	<div class="productDetails">
-			<p>${product.name }</p>
+			<p>${product.name }</p> 
+			<div class='rating_bar' title="${total_rating } out of 5.0 stars">
+    			<div  class='rating_show'  style='width:${total_rating_width}%;'>
+    			</div>
+			</div>
+			
 			<p>Rating: ${rating } % satisfaction</p>
 			<p>Price: ${product.price }</p>
 			<p>In Stock: ${product.productInventory.quantity }</p>
@@ -153,7 +187,7 @@ div.shipping a:HOVER{
 				<p> ${ productDetail }</p>
 			</c:forEach>
 			<p>${product.catagory.catagoryName }</p>
-			<a href="http://localhost:8080/virtualstore/productReview/${product.id }">Customer Reviews</a> 
+			<a href="http://localhost:8080/virtualstore/productReview/${product.id }">Add Review</a> 
 	</div>
 	
 	<div class="shipping">
@@ -161,6 +195,28 @@ div.shipping a:HOVER{
 		<a href="http://localhost:8080/virtualstore/AddToShoppingCart/${product.id }">Add to Cart</a>
 	</div>
 	
+</section>
+
+<section class="reviews">
+
+<table>
+   <c:forEach var="review" items="${all_reviews}" >
+   	<tr>
+   		<td>
+    		<table>
+    			<tr>
+    				<td>
+						<b>${review.user.username}</b> gave <b>${review.rating}.0/5.0</b> rating on ${review.date}											
+					</td>
+        			</tr>
+        			<tr>
+        				<td>${review.comment} </td>
+    			</tr>
+    		</table>
+   		</td>
+   	</tr>
+   </c:forEach>
+</table>
 </section>
 
 <section class="sameCatagoryItems">

@@ -31,6 +31,7 @@ import edu.mum.product.domain.Product;
 import edu.mum.product.domain.ProductInventory;
 import edu.mum.product.domain.ProductJsonObject;
 import edu.mum.product.service.IProductService;
+import edu.mum.review.service.IReviewService;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -43,6 +44,8 @@ public class ProductController {
 	@Autowired
     private IProductService productService;
 	
+	@Autowired
+	private IReviewService reviewService;
 	//private Order order = new Order();
 	
 	
@@ -102,6 +105,11 @@ public class ProductController {
 		product.setProductInventory( productInventory);
 		int rating = productService.claculateRatings( product);
 		model.addAttribute("product", product);
+		model.addAttribute("all_reviews", reviewService.findByProduct(product));
+		Double total_rating=reviewService.calculateProductRatings(product);
+		model.addAttribute("total_rating", total_rating);
+		model.addAttribute("total_rating_width", Math.round( (total_rating/5)*100  ) );
+		
 		if( rating <= 0){
 			model.addAttribute("rating", "N/A");
 		}else{

@@ -50,7 +50,7 @@ public class Order {
 	@Embedded
 	private Address address;
 	
-	@OneToMany( mappedBy="order")
+	@OneToMany( mappedBy="order",cascade=CascadeType.ALL)
 	private List<OrderLine> orderLines = new ArrayList<OrderLine>();
 
 	public Long getId() {

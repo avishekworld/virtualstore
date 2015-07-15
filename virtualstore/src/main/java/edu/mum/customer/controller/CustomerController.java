@@ -166,6 +166,12 @@ public class CustomerController {
 		
 		model.addAttribute("message", "Payment Status : "+paymentResponse.getPaymentSucess()+" - "+paymentResponse.getMessage());
 		
+		if(paymentResponse.isCompleted())
+		{
+			request.getSession().removeAttribute("order");
+			request.getSession().removeAttribute("subtotatl");
+			
+		}
         return "checkout";
     }
 	

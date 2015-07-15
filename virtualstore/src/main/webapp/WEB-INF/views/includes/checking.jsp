@@ -1,3 +1,4 @@
+<%@page import="java.lang.*"%>
 <%
 if( request.getSession().getAttribute("islogged") != null && request.getSession().getAttribute("islogged").equals("true")){
 	//out.println( "YOU ARE LOGGED IN - checking.jsp" );	

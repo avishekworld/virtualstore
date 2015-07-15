@@ -86,6 +86,11 @@ public class ProductService implements IProductService{
 		}
 		return sum;
 	}
+	
+	public void modifyProduct(Product product) 
+	{
+		productDao.updateProduct(product);
+	}
 
 
 	@Override

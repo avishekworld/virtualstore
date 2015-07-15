@@ -20,6 +20,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import edu.mum.admin.domain.RoleType;
+import edu.mum.admin.domain.UserRole;
 import edu.mum.customer.domain.User;
 import edu.mum.customer.domain.UserProfile;
 import edu.mum.product.domain.Catagory;
@@ -247,17 +249,33 @@ public class ProductController {
 	
     /*Avishek*/
     @RequestMapping(value = "/product", method = RequestMethod.GET)
-    public String getAll(Model model) {
+    public String getAll(Model model,HttpServletRequest request) {
     	
-    	List<Catagory> catagories=productService.getProductCategories();
     	
-    	model.addAttribute("catagories", catagories);
+		if( request.getSession().getAttribute("islogged") != null && request.getSession().getAttribute("islogged").equals("true")){
+			
+			UserRole userRole=(UserRole)request.getSession().getAttribute("userRole");
+			
+			if(userRole.isAdmin())
+			{
+				model.addAttribute("pageTitle", "Add Product");
+				List<Catagory> catagories=productService.getProductCategories();
+		    	
+		    	model.addAttribute("catagories", catagories);
+		    	
+				return "product";
+			}
+			
+		}
+		
+		
+		return "redirect:/home";
     	
-        return "product";
+
     }
 	
 	@RequestMapping(value="/product", method=RequestMethod.POST)
-	public String add(Product product, @RequestParam("catagoryId") int catagoryId, @RequestParam("quantity") int quantity,@RequestParam("file") MultipartFile file,MultipartHttpServletRequest request) {
+	public String add(Model model, Product product, @RequestParam("catagoryId") int catagoryId, @RequestParam("quantity") int quantity,@RequestParam("file") MultipartFile file,MultipartHttpServletRequest request) {
 		
 		String fileName=null;
 
@@ -292,7 +310,29 @@ public class ProductController {
 		
 		productService.registerProduct(product, catagoryId,quantity,fileName);
 		
+		model.addAttribute("message", "Product Created ");
+		
 		return "redirect:/product";
+	}
+	
+	@RequestMapping(value="/product/{id}", method=RequestMethod.GET)
+	public String get( Model model, @PathVariable("id") long productId) {
+		model.addAttribute("product", productService.getProduct(productId));
+		return "productupdate";
+	}
+	
+	@RequestMapping(value="/product/{id}", method=RequestMethod.POST)
+	public String update(Model model, Product product,@PathVariable("id") long productId) {
+		
+		Product updateProduct=productService.getProduct(productId);
+		updateProduct.setName(product.getName());
+		updateProduct.setPrice(product.getPrice());
+		
+		productService.modifyProduct(updateProduct); // car.id already set by binding
+		
+		model.addAttribute("message", "Product Updated");
+		
+		return "productupdate";
 	}
 	
 	

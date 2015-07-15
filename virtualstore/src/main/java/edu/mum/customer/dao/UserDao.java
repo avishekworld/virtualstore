@@ -26,13 +26,13 @@ public class UserDao implements IUserDao {
 		this.sessionFactory = sessionFactory;
 	}
 
-	public void saveUser(User user, UserProfile userProfile) {
+	public void saveUser(User user, UserProfile userProfile,String roleType) {
 		
 		
 		sessionFactory.getCurrentSession().save(user);
 		userProfile.setId(user.getId());
 		sessionFactory.getCurrentSession().persist(userProfile);
-		UserRole userRole=new UserRole(user.getUsername(),RoleType.ROLE_USER);
+		UserRole userRole=new UserRole(user.getUsername(),roleType);
 		sessionFactory.getCurrentSession().persist(userRole);
 
 		
@@ -41,6 +41,11 @@ public class UserDao implements IUserDao {
 	public User getUser(Long userId) {
 		// TODO Auto-generated method stub
 		return (User) sessionFactory.getCurrentSession().get( User.class, userId);
+	}
+	
+	public UserRole loadUserRole(Long userId)
+	{
+		return (UserRole) sessionFactory.getCurrentSession().get( UserRole.class, userId);
 	}
 
 	@Override
@@ -59,10 +64,14 @@ public class UserDao implements IUserDao {
 
 	@Override
 	public UserProfile getUserProfileByUserId(Long userid) {
-		String qString = "FROM UserProfile U WHERE U.user.id=:UPID";
+		String qString = "FROM User U WHERE U.id=:UPID";
 		Query q = sessionFactory.getCurrentSession().createQuery(qString);
 		q.setParameter("UPID", userid);
-		return (UserProfile)q.uniqueResult();
+		
+		User u=(User)q.uniqueResult();
+		UserProfile up=u.getUserProfile();
+		
+		return up;
 	}
 	
 	public PaymentInfo loadPaymentInfo(Long paymentId)

@@ -38,7 +38,7 @@ public class User {
 	private List<Order> orders = new ArrayList<Order>();
 
 
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="user")
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="user", fetch=FetchType.EAGER)
 	private List<PaymentInfo> paymentInfos = new ArrayList<PaymentInfo>();
 
 

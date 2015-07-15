@@ -1,13 +1,13 @@
 
 <%
 //IF user is logged in, then redirect him to home page and do not allow another registration form submission
-if( request.getSession().getAttribute("islogged") != null && request.getSession().getAttribute("islogged").equals("true")){
+/*if( request.getSession().getAttribute("islogged") != null && request.getSession().getAttribute("islogged").equals("true")){
 	//out.println( "YOU ARE LOGGED IN - checking.jsp" );
 	String site = new String("http://localhost:8080/virtualstore/home");
 	response.sendRedirect( site);
-}	
+}	*/
 %>
-
+<%@page import="edu.mum.admin.domain.UserRole"%>
 <%@include file="includes/header.jsp" %>
 <%@include file="includes/mainNav.jsp" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -17,7 +17,7 @@ if( request.getSession().getAttribute("islogged") != null && request.getSession(
     <head>
 <%--     <link href="<c:url value="css/main.css" />" rel="stylesheet"> --%>
     <link href="css/main.css" rel="stylesheet">
-    <title>User Registration</title>
+    <title>Registration</title>
         <style type="text/css">
  
             body {font-family:Arial, Sans-Serif;}
@@ -39,12 +39,40 @@ if( request.getSession().getAttribute("islogged") != null && request.getSession(
     </head>
     
     <body>
-    
-    <%@include file="includes/mainNav.jsp" %>
+   
     
         <div id="container">
-            <form action="registration" method="post">
-                <h1>Registration</h1>
+        	<%
+        	if( request.getSession().getAttribute("islogged") != null && request.getSession().getAttribute("islogged").equals("true"))
+        	{
+        		{
+        	
+				UserRole userRole=(UserRole)request.getSession().getAttribute("userRole");
+				
+					if( userRole.isAdmin())
+					{
+						
+						%>		
+							<form action="createadmin" method="post">
+							<h1>Admin Registration</h1>
+							
+						<% 	
+					}
+				
+        		}
+        	}
+				
+        	else{
+				
+					
+				%>	
+            		<form action="registration" method="post">
+            		<h1>User Registration</h1>
+	            <% 
+	            
+					}
+	            %>
+                
                 <div class="line"><label for="username">Username *: </label><input type="text" id="username" value = "someone"name="username" /></div>
                 <div class="line"><label for="pwd">Password *: </label><input type="password" id="password" name = "password" value="123456" /></div>
 
@@ -74,3 +102,4 @@ if( request.getSession().getAttribute("islogged") != null && request.getSession(
         </div>
     </body>
 </html>
+<%@include file="includes/footer.jsp" %>

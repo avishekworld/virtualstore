@@ -28,7 +28,7 @@ public class PaymentGateway {
     private IUserService userService;
 	
 	@RequestMapping(value="/rest/paymentrequest/{paymentId}", method=RequestMethod.GET,headers = "Accept=application/json",produces = "application/json")
-	public @ResponseBody PaymentResponse getPaymentRequest(@PathVariable("paymentId") long paymentId,@RequestParam("amount") double amount)
+	public @ResponseBody PaymentResponse doPayment(@PathVariable("paymentId") long paymentId,@RequestParam("amount") double amount)
 	{
 		PaymentInfo paymentInfo=userService.getPaymentInfo(paymentId);
 		

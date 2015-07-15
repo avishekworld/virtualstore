@@ -1,3 +1,4 @@
+<%@page import="edu.mum.admin.domain.UserRole"%>
 <%@include file="includes/header.jsp" %>
 <%@include file="includes/mainNav.jsp" %>
 
@@ -29,8 +30,27 @@
 					</c:choose>
 					</div>
 					<div class="featuredProductLinkDetails"><a href="http://localhost:8080/virtualstore/productDetails/${product.id }">${ product.name}</a> </div>	
-				
+					<div class="featuredProductLinkDetails">${ product.price}</div>
 					<div class="featuredProductLinkAdd"><a href="http://localhost:8080/virtualstore/AddToShoppingCart/${product.id }">Add</a> </div>
+					<%
+						if( request.getSession().getAttribute("islogged") != null && request.getSession().getAttribute("islogged").equals("true"))
+			        	{
+		
+							UserRole userRole=(UserRole)request.getSession().getAttribute("userRole");
+							
+							if( userRole.isAdmin())
+							{
+								
+							%>		
+								<div class="featuredProductLinkAdd"><a href="http://localhost:8080/virtualstore/product/${product.id }">Edit</a> </div>
+								
+							<% 	
+							}
+			        	}
+						
+							
+						%>	
+					
 				</div>
 			</c:forEach>
 		</section>

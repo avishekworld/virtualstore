@@ -22,6 +22,8 @@
       <context:annotation-config />	
        
       <aop:config proxy-target-class="true"/>
+      
+      <aop:aspectj-autoproxy />
   	
 	  <tx:annotation-driven transaction-manager="txManager" />
 	  
@@ -74,6 +76,8 @@
 			</props>
 		</property>
 	</bean>
+	
+	<bean id="virtualStoreAspect" class="edu.mum.admin.controller.VirtualStoreAspect" />
   	
 <!-- 			<sec:authentication-manager> -->
 <!-- 		  <sec:ldap-authentication-provider> -->

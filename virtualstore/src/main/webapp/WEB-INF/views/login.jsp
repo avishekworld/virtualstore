@@ -14,7 +14,6 @@
 
 
 <body>
-<%@include file="includes/mainNav.jsp" %>
 <div class="signin">
 	<form method="post" action="" >
 		<table>

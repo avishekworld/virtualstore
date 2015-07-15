@@ -73,6 +73,12 @@ public class ProductDao implements IProductDao {
 		
 	}
 	
+	public void updateProduct( Product product) 
+	{
+		sessionFactory.getCurrentSession().update(product);
+		
+	}
+	
 	public  Catagory getCategory(int catagoryId)
 	{
 		String qString = "FROM Catagory c where c.id="+catagoryId;

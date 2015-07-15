@@ -40,6 +40,19 @@ public class PaymentResponse implements Serializable{
 		this.message = message;
 	}
 	
+	public boolean isCompleted()
+	{
+		if(paymentSucess!=null)
+		{
+			if(paymentSucess.equals("true"))
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+	
 	
 
 }

@@ -10,7 +10,6 @@ import edu.mum.product.domain.Catagory;
 @Transactional(propagation=Propagation.REQUIRED)
 public interface IAdminDao {
 	
-	public void saveAdmin(User user);
 	public void saveCategory(Catagory category);
 
 }

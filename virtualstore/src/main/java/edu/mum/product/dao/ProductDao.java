@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.mysql.jdbc.Util;
 
 import edu.mum.admin.domain.Utilities;
+import edu.mum.customer.domain.UserProfile;
 import edu.mum.product.domain.Catagory;
 import edu.mum.product.domain.Product;
 import edu.mum.product.domain.ProductInventory;
@@ -72,6 +73,12 @@ public class ProductDao implements IProductDao {
 		
 	}
 	
+	public void updateProduct( Product product) 
+	{
+		sessionFactory.getCurrentSession().update(product);
+		
+	}
+	
 	public  Catagory getCategory(int catagoryId)
 	{
 		String qString = "FROM Catagory c where c.id="+catagoryId;
@@ -110,6 +117,14 @@ public class ProductDao implements IProductDao {
 		String qString = "FROM Catagory C ";
 		Query q = sessionFactory.getCurrentSession().createQuery(qString);
 		return q.list();
+	}
+
+	@Override
+	public ProductInventory getProductInventoryByProductId(Long productId) {
+		String qString = "FROM ProductInventory PI WHERE PI.product.id=:PID";
+		Query q = sessionFactory.getCurrentSession().createQuery(qString);
+		q.setParameter("PID", productId);
+		return ( ProductInventory)q.uniqueResult();
 	}
 
 }

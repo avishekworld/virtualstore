@@ -1,9 +1,23 @@
+
+<%
+//IF user is logged in, then redirect him to home page and do not allow another registration form submission
+/*if( request.getSession().getAttribute("islogged") != null && request.getSession().getAttribute("islogged").equals("true")){
+	//out.println( "YOU ARE LOGGED IN - checking.jsp" );
+	String site = new String("http://localhost:8080/virtualstore/home");
+	response.sendRedirect( site);
+}	*/
+%>
+<%@page import="edu.mum.admin.domain.UserRole"%>
+<%@include file="includes/header.jsp" %>
+<%@include file="includes/mainNav.jsp" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
-    <title>User Registration</title>
+<%--     <link href="<c:url value="css/main.css" />" rel="stylesheet"> --%>
+    <link href="css/main.css" rel="stylesheet">
+    <title>Registration</title>
         <style type="text/css">
  
             body {font-family:Arial, Sans-Serif;}
@@ -23,10 +37,42 @@
  
         </style>
     </head>
+    
     <body>
+   
+    
         <div id="container">
-            <form action="registration" method="post">
-                <h1>Registration</h1>
+        	<%
+        	if( request.getSession().getAttribute("islogged") != null && request.getSession().getAttribute("islogged").equals("true"))
+        	{
+        		{
+        	
+				UserRole userRole=(UserRole)request.getSession().getAttribute("userRole");
+				
+					if( userRole.isAdmin())
+					{
+						
+						%>		
+							<form action="createadmin" method="post">
+							<h1>Admin Registration</h1>
+							
+						<% 	
+					}
+				
+        		}
+        	}
+				
+        	else{
+				
+					
+				%>	
+            		<form action="registration" method="post">
+            		<h1>User Registration</h1>
+	            <% 
+	            
+					}
+	            %>
+                
                 <div class="line"><label for="username">Username *: </label><input type="text" id="username" value = "someone"name="username" /></div>
                 <div class="line"><label for="pwd">Password *: </label><input type="password" id="password" name = "password" value="123456" /></div>
 
@@ -56,3 +102,4 @@
         </div>
     </body>
 </html>
+<%@include file="includes/footer.jsp" %>

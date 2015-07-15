@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -37,12 +38,12 @@ public class User {
 	private List<Order> orders = new ArrayList<Order>();
 
 
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="user")
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="user", fetch=FetchType.EAGER)
 	private List<PaymentInfo> paymentInfos = new ArrayList<PaymentInfo>();
 
 
 	//@OneToOne(mappedBy="user",cascade = CascadeType.ALL)
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
 	@PrimaryKeyJoinColumn
 	private UserProfile userProfile;
 

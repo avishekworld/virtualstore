@@ -20,13 +20,6 @@ public class AdminDao implements IAdminDao {
 		this.sessionFactory = sessionFactory;
 	}
 	
-	public void saveAdmin(User user) {
-		
-		sessionFactory.getCurrentSession().save(user);
-		UserRole userRole=new UserRole(user.getUsername(),RoleType.ROLE_ADMIN);
-		sessionFactory.getCurrentSession().persist(userRole);
-	}
-	
 	public void saveCategory(Catagory category) {
 
 		sessionFactory.getCurrentSession().persist(category);

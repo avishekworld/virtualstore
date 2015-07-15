@@ -20,11 +20,15 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import edu.mum.admin.domain.RoleType;
+import edu.mum.admin.domain.UserRole;
 import edu.mum.customer.domain.User;
+import edu.mum.customer.domain.UserProfile;
 import edu.mum.product.domain.Catagory;
 import edu.mum.product.domain.Order;
 import edu.mum.product.domain.OrderLine;
 import edu.mum.product.domain.Product;
+import edu.mum.product.domain.ProductInventory;
 import edu.mum.product.domain.ProductJsonObject;
 import edu.mum.product.service.IProductService;
 
@@ -56,10 +60,29 @@ public class ProductController {
     public String showHome(Model model, HttpServletRequest request) {
         
 		
-		model.addAttribute("pageTitle", "Home Page");
-		model.addAttribute("featuredProducts", productService.getFeaturedProducts());
+		model.addAttribute("pageTitle", "Welcome to Virtual Store");
+		List<Product> featuredProducts = productService.getFeaturedProducts();
+		
+		for( int i = 0 ; i < featuredProducts.size(); i++) {
+			ProductInventory pInventory = productService.getProductInventoryByProductId( featuredProducts.get(i).getId() );
+			featuredProducts.get(i).setProductInventory(pInventory);
+			if( pInventory == null){
+				System.out.println( " NO    pInventory Quantity : " );
+			}else{
+				System.out.println( "pInventory Quantity : "+pInventory.getQuantity() );
+			}
+				
+		}
+		model.addAttribute("featuredProducts", featuredProducts);
 		model.addAttribute("relatedProducts", productService.getRelatedProducts());
+		
+		
+		
+		//System.out.println( featuredProducts.get(0).getProductInventory().getQuantity() );
+		
+
 		System.out.println("\n\n\n\n------------ "+ productService.getFeaturedProducts().size());
+
 		return "home";
     }
 	
@@ -75,9 +98,16 @@ public class ProductController {
         
 		model.addAttribute("pageTitle", "Product Details Page");
 		Product product = productService.getProduct( productId);
+		ProductInventory productInventory = productService.getProductInventoryByProductId( product.getId());
+		product.setProductInventory( productInventory);
 		int rating = productService.claculateRatings( product);
 		model.addAttribute("product", product);
-		model.addAttribute("rating", rating);
+		if( rating <= 0){
+			model.addAttribute("rating", "N/A");
+		}else{
+			model.addAttribute("rating", rating);
+		}
+		
 		
 		return "productDetails";
     }
@@ -126,8 +156,9 @@ public class ProductController {
 				request.getSession().setAttribute("order", tempOrder);
 			}
 		}
-		
+		request.getSession().setAttribute("subtotatl",  productService.claculateSubtotatl(tempOrder) );
 		return "shoppingCart";
+		//return "redirect:/shoppingCart";
     }
 	
 	@RequestMapping(value = "/RemoveFromShoppingCart/{productId}", method = RequestMethod.GET)
@@ -148,6 +179,7 @@ public class ProductController {
 			//tempOrder.getOrderLines().remove( productService.getProduct(productId) );
 			tempOrder.getOrderLines().remove(index);
 			request.getSession().setAttribute("order", tempOrder);
+			request.getSession().setAttribute("subtotatl",  productService.claculateSubtotatl(tempOrder) );
 		}
 		return "shoppingCart";
     }
@@ -171,6 +203,7 @@ public class ProductController {
 			//tempOrder.getOrderLines().remove( productService.getProduct(productId) );
 			tempOrder.getOrderLines().get(index).setQuantity( quantity);
 			request.getSession().setAttribute("order", tempOrder);
+			request.getSession().setAttribute("subtotatl",  productService.claculateSubtotatl(tempOrder) );
 		}
 		System.out.println("CHANGE QUANTITY-------------------------");
 		return "redirect:/shoppingCart";
@@ -181,23 +214,68 @@ public class ProductController {
 		
 		model.addAttribute("pageTitle", "Your Cart");
 		
-		System.out.println("HERERRRRRRRRRRRRRRRRRRRRRRRR");
+		//System.out.println("HERERRRRRRRRRRRRRRRRRRRRRRRR");
 		return "shoppingCart";
     }
     
+	
+	@RequestMapping(value = "/checkOut")
+    public String checkout(Model model, HttpServletRequest request) {
+		
+		model.addAttribute("pageTitle", "Check out");
+		if( request.getSession().getAttribute("islogged") != null ){
+			return "shipping";
+		}
+		
+		
+		return "signinORsignup";
+    }
+	
+	@RequestMapping(value = "/shipping")
+    public String shippingAndPayment(Model model, HttpServletRequest request) {
+		
+		model.addAttribute("pageTitle", "Check out");
+		
+		UserProfile userProfile = (UserProfile)request.getSession().getAttribute("userProfile");
+		
+		
+//		if( request.getSession().getAttribute("islogged") != null ){
+//			return "shippingAndPayment";
+//		}
+//		
+		
+		return "shipping";
+    }
+	
     /*Avishek*/
     @RequestMapping(value = "/product", method = RequestMethod.GET)
-    public String getAll(Model model) {
+    public String getAll(Model model,HttpServletRequest request) {
     	
-    	List<Catagory> catagories=productService.getProductCategories();
     	
-    	model.addAttribute("catagories", catagories);
+		if( request.getSession().getAttribute("islogged") != null && request.getSession().getAttribute("islogged").equals("true")){
+			
+			UserRole userRole=(UserRole)request.getSession().getAttribute("userRole");
+			
+			if(userRole.isAdmin())
+			{
+				model.addAttribute("pageTitle", "Add Product");
+				List<Catagory> catagories=productService.getProductCategories();
+		    	
+		    	model.addAttribute("catagories", catagories);
+		    	
+				return "product";
+			}
+			
+		}
+		
+		
+		return "redirect:/home";
     	
-        return "product";
+
     }
 	
 	@RequestMapping(value="/product", method=RequestMethod.POST)
-	public String add(Product product, @RequestParam("catagoryId") int catagoryId, @RequestParam("quantity") int quantity,@RequestParam("file") MultipartFile file,MultipartHttpServletRequest request) {
+	public String add(Model model, Product product, @RequestParam("catagoryId") int catagoryId, @RequestParam("quantity") int quantity,@RequestParam("file") MultipartFile file,MultipartHttpServletRequest request) {
 		
 		String fileName=null;
 
@@ -232,7 +310,29 @@ public class ProductController {
 		
 		productService.registerProduct(product, catagoryId,quantity,fileName);
 		
+		model.addAttribute("message", "Product Created ");
+		
 		return "redirect:/product";
+	}
+	
+	@RequestMapping(value="/product/{id}", method=RequestMethod.GET)
+	public String get( Model model, @PathVariable("id") long productId) {
+		model.addAttribute("product", productService.getProduct(productId));
+		return "productupdate";
+	}
+	
+	@RequestMapping(value="/product/{id}", method=RequestMethod.POST)
+	public String update(Model model, Product product,@PathVariable("id") long productId) {
+		
+		Product updateProduct=productService.getProduct(productId);
+		updateProduct.setName(product.getName());
+		updateProduct.setPrice(product.getPrice());
+		
+		productService.modifyProduct(updateProduct); // car.id already set by binding
+		
+		model.addAttribute("message", "Product Updated");
+		
+		return "productupdate";
 	}
 	
 	

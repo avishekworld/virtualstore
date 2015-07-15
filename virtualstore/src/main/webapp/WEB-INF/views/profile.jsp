@@ -64,7 +64,7 @@
 	<%
 	
 	UserRole userRole=(UserRole)request.getSession().getAttribute("userRole");
-	
+	//is admin
 	if( userRole.isAdmin()){
 		
 	%>		

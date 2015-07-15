@@ -47,6 +47,7 @@ public class CustomerController {
 		
 		userProfile.setBillingAddress(billingAddress);
 		userProfile.setShippingAddress(shippingAddress);
+		userProfile.setUser(user);
 		userService.registerUser(user, userProfile,RoleType.ROLE_USER);
 		model.addAttribute("message", "User Registration Successful");
 		return "redirect:/login";
@@ -90,9 +91,11 @@ public class CustomerController {
 		}
 		UserRole userRole = userService.getUserRole(user.getId());
 		
+		
 		if ( user != null && user.getPassword().equals( password ) ) {
 			
-			UserProfile userProfile = userService.getUserProfileByUserId( user.getId() );			
+			UserProfile userProfile = userService.getUserProfileByUserId( user.getId() );	
+			userProfile.setUser(user);
 			request.getSession().setAttribute("islogged", "true");
 			request.getSession().setAttribute("userProfile", userProfile);
 			request.getSession().setAttribute("userRole", userRole);
@@ -134,23 +137,20 @@ public class CustomerController {
 	
 	        
     @RequestMapping(value = "/checkout", method = RequestMethod.GET)
-    public String getCheckout(Model model) {
+    public String getCheckout(Model model,HttpServletRequest request) {
     	
-    	//UserProfile userProfile=(UserProfile) request.getSession().getAttribute("userprofile");
-    	
-		User user=userService.getUser(1L);
+    	UserProfile userProfile=(UserProfile) request.getSession().getAttribute("userProfile");
 		
-		model.addAttribute("payments", user.getPaymentInfos());
+		model.addAttribute("payments", userProfile.getUser().getPaymentInfos());
     	
         return "checkout";
     }
     
     @RequestMapping(value = "/checkout", method = RequestMethod.POST)
-    public String doCheckout(Model model,@RequestParam("amount") double amount,@RequestParam("paymentId") long paymentId) {
+    public String doCheckout(Model model,HttpServletRequest request,@RequestParam("amount") double amount,@RequestParam("paymentId") long paymentId) {
     	
-    	//UserProfile userProfile=(UserProfile) request.getSession().getAttribute("userprofile");
+    	UserProfile userProfile=(UserProfile) request.getSession().getAttribute("userProfile");
 
-		
 		PaymentInfo paymentInfo=userService.getPaymentInfo(paymentId);
 		
 		RestTemplate paymentRest=new RestTemplate();
@@ -158,9 +158,8 @@ public class CustomerController {
 		PaymentResponse paymentResponse = paymentRest.getForObject(Utilities.URL+"/rest/paymentrequest/"+paymentId+"?amount="+amount, PaymentResponse.class);
 		
 		//PaymentResponse paymentResponse = paymentRest.postForObject(Utilities.URL+"/rest/paymentrequest", paymentInfo, PaymentResponse.class);
-		User user=userService.getUser(1L);
 		
-		model.addAttribute("payments", user.getPaymentInfos());
+		model.addAttribute("payments", userProfile.getUser().getPaymentInfos());
 		
 		model.addAttribute("message", "Payment Status : "+paymentResponse.getPaymentSucess()+" - "+paymentResponse.getMessage());
 		
@@ -170,7 +169,7 @@ public class CustomerController {
 	@RequestMapping(value="/payment", method=RequestMethod.POST)
 	public String addPayment(Model model, @RequestParam("cardNumber") String cardNumber,@RequestParam("paymentName") String paymentName,@RequestParam("expireDate") String expireDate,HttpServletRequest request) {
 		
-		//UserProfile userProfile=(UserProfile) request.getSession().getAttribute("userprofile");
+		UserProfile userProfile=(UserProfile) request.getSession().getAttribute("userProfile");
 		
 		PaymentInfo paymentInfo=new PaymentInfo();
 		paymentInfo.setCardNumber(cardNumber);
@@ -190,10 +189,6 @@ public class CustomerController {
 		}
 		
 		paymentInfo.setExpireDate(date);
-		
-		User user=userService.getUser(1L);
-		
-		UserProfile userProfile=user.getUserProfile();
 		
 		paymentInfo.setUser(userService.getUser(userProfile.getId()));
 		

@@ -104,6 +104,12 @@ public class ProductService implements IProductService{
 	}
 
 
+	@Override
+	public List<Product> searchForProducts(String searchedTerm) {
+		return productDao.searchForProducts(searchedTerm);
+	}
+
+
 
 
 }

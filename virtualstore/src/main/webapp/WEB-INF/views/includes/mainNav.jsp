@@ -7,7 +7,6 @@
 	if( request.getSession().getAttribute("islogged") != null && request.getSession().getAttribute("islogged").equals("true")){
 %>		
 	<li style="display: inline;  margin-left: 15px;">Welcome <a href="/virtualstore/profile">${userProfile.firstName}</a></li>
-	<li style="display: inline;  margin-left: 15px;"><a href="/virtualstore/shoppingCart">Your Cart</a></li>
 	
 <% 	
 	}
@@ -18,7 +17,7 @@
 // 	}
 	
 %>	
-
+	<li style="display: inline;  margin-left: 15px;"><a href="/virtualstore/shoppingCart">Your Cart</a></li>
 		<%
 	if( request.getSession().getAttribute("islogged") != null && request.getSession().getAttribute("islogged").equals("true")){
 	%>		
@@ -43,8 +42,8 @@
 	</ul>
 </div>
 <div class="search">
-	<form action="search" >
-		<input type="text" placeholder="Search for products"/>
+	<form action="search" method="get">
+		<input type="text" placeholder="Search for products" name="searchedTerm"/>
 		<input type="submit" value="Serch" />
 	</form>
 </div>

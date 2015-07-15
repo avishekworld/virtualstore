@@ -127,4 +127,18 @@ public class ProductDao implements IProductDao {
 		return ( ProductInventory)q.uniqueResult();
 	}
 
+	@Override
+	public List<Product> searchForProducts(String searchedTerm) {
+			
+		String qString = "FROM Product P WHERE P.name LIKE '%"+searchedTerm+"%'";
+		Query q = sessionFactory.getCurrentSession().createQuery(qString);
+		List<Product> foundProducts = new ArrayList<Product>();
+		foundProducts = q.list();
+		
+		if( foundProducts.size() >= 1  ){
+			return foundProducts;
+		}
+		return null;
+	}
+
 }

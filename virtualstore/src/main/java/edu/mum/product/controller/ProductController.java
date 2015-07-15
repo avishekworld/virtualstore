@@ -31,6 +31,7 @@ import edu.mum.product.domain.Product;
 import edu.mum.product.domain.ProductInventory;
 import edu.mum.product.domain.ProductJsonObject;
 import edu.mum.product.service.IProductService;
+import edu.mum.review.service.IReviewService;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -43,6 +44,8 @@ public class ProductController {
 	@Autowired
     private IProductService productService;
 	
+	@Autowired
+	private IReviewService reviewService;
 	//private Order order = new Order();
 	
 	
@@ -52,7 +55,7 @@ public class ProductController {
 		model.addAttribute("pageTitle", "Home Page");
 		model.addAttribute("featuredProducts", productService.getFeaturedProducts());
 		model.addAttribute("relatedProducts", productService.getRelatedProducts());
-		System.out.println("\n\n\n\n------------ "+ productService.getFeaturedProducts().size());
+		//System.out.println("\n\n\n\n------------ "+ productService.getFeaturedProducts().size());
         return "home";
     }
 	
@@ -81,7 +84,7 @@ public class ProductController {
 		//System.out.println( featuredProducts.get(0).getProductInventory().getQuantity() );
 		
 
-		System.out.println("\n\n\n\n------------ "+ productService.getFeaturedProducts().size());
+		//System.out.println("\n\n\n\n------------ "+ productService.getFeaturedProducts().size());
 
 		return "home";
     }
@@ -102,6 +105,11 @@ public class ProductController {
 		product.setProductInventory( productInventory);
 		int rating = productService.claculateRatings( product);
 		model.addAttribute("product", product);
+		model.addAttribute("all_reviews", reviewService.findByProduct(product));
+		Double total_rating=reviewService.calculateProductRatings(product);
+		model.addAttribute("total_rating", total_rating);
+		model.addAttribute("total_rating_width", Math.round( (total_rating/5)*100  ) );
+		
 		if( rating <= 0){
 			model.addAttribute("rating", "N/A");
 		}else{
@@ -125,6 +133,7 @@ public class ProductController {
 			//Current user is hard cooded
 			User user = new User();
 			user.setId(1L);
+			
 			tempOrder.setUser( user );
 			
 			OrderLine orderLine = new OrderLine();
@@ -246,6 +255,19 @@ public class ProductController {
 		
 		return "shipping";
     }
+	
+	
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+    public String search(Model model, @RequestParam("searchedTerm") String searchedTerm, HttpServletRequest request) {
+		
+		model.addAttribute("pageTitle", "You Searched For ");
+		
+		List<Product> foundProducts =	productService.searchForProducts( searchedTerm);
+		//System.out.println( "\n\n\n\nYou searched for " + searchedTerm + " ---- "+ foundProducts.size());
+		model.addAttribute( "foundProducts", foundProducts);
+		return "searchPage";
+    }
+	
 	
     /*Avishek*/
     @RequestMapping(value = "/product", method = RequestMethod.GET)

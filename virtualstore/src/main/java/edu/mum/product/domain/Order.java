@@ -8,6 +8,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -49,7 +50,7 @@ public class Order {
 	@Embedded
 	private Address address;
 	
-	@OneToMany( mappedBy="order")
+	@OneToMany( mappedBy="order",cascade=CascadeType.ALL)
 	private List<OrderLine> orderLines = new ArrayList<OrderLine>();
 
 	public Long getId() {

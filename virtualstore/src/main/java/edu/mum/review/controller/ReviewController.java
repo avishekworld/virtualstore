@@ -3,6 +3,8 @@ package edu.mum.review.controller;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import edu.mum.admin.domain.UserRole;
 import edu.mum.customer.domain.User;
+import edu.mum.customer.domain.UserProfile;
 import edu.mum.customer.service.IUserService;
 import edu.mum.product.domain.Product;
 import edu.mum.product.service.IProductService;
@@ -46,14 +50,18 @@ public class ReviewController {
 	  }
 	
 	@RequestMapping(value="/productR", method=RequestMethod.POST)
-	public String addReview(@RequestParam("rating") int rating ,@RequestParam("comment") String comment,@RequestParam("product") long pid, Model model) 
+	public String addReview(@RequestParam("rating") int rating ,@RequestParam("comment") String comment,@RequestParam("product") long pid, Model model,HttpServletRequest request) 
 	{
 		
 		Product product = productService.getProduct((long) pid);
 		
 		System.out.println( "\n\n\nJUST--------------- 2\n\n\n");
 		//User is hard cooded
-		User user = userService.getUser(1L);
+		//User user = userService.getUser(1L);
+		
+		UserProfile userProfile=(UserProfile) request.getSession().getAttribute("userProfile");
+		
+		User user=userProfile.getUser();
 		
 		System.out.println( "\n\n\nJUST--------------- 3\n\n\n");
 		if( user == null)

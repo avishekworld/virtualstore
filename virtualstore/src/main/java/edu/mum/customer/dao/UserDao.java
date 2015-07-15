@@ -14,6 +14,7 @@ import edu.mum.admin.domain.UserRole;
 import edu.mum.customer.domain.PaymentInfo;
 import edu.mum.customer.domain.User;
 import edu.mum.customer.domain.UserProfile;
+import edu.mum.product.domain.Order;
 import edu.mum.product.domain.Product;
 
 @Transactional(propagation=Propagation.REQUIRED)
@@ -36,6 +37,20 @@ public class UserDao implements IUserDao {
 		sessionFactory.getCurrentSession().persist(userRole);
 
 		
+	}
+	
+	public void saveOrder(Order order)
+	{
+		sessionFactory.getCurrentSession().saveOrUpdate(order);
+	}
+	
+	public List<Order> loadAllOrder(User user)
+	{
+		String qString = "FROM Order o WHERE o.user.id=:U";
+		Query q = sessionFactory.getCurrentSession().createQuery(qString);
+		q.setParameter("U", user.getId());
+		List<Order> allOrder=q.list();
+		return allOrder;
 	}
 	
 	public User getUser(Long userId) {

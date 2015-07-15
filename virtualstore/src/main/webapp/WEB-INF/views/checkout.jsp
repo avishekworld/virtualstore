@@ -34,16 +34,22 @@
                 
 
                 <div class="line">Amount: <input type="text" id="name" name="amount" value ="${subtotatl}" /></div>
-                <div class="line">Payment *: 
-					<select  name = "paymentId" >
-					
-						<c:forEach var="paymentInfo" items="${payments}">
-							<option  value="${paymentInfo.id}">${paymentInfo.paymentName}</option>
-						</c:forEach>
-					</select>
-					 </div>
-               
-                <div class="line submit"><input type="submit" value="Submit" /></div>
+                
+					<c:if test="${payments.size() >0}">
+						<div class="line">Payment *: 
+						<select  name = "paymentId" >
+							<c:forEach var="paymentInfo" items="${payments}">
+								<option  value="${paymentInfo.id}">${paymentInfo.paymentName}</option>
+							</c:forEach>
+						</select>
+						 </div>
+	               
+	                		<div class="line submit"><input type="submit" value="Submit" /></div>
+                
+                	</c:if>
+                	<c:if test="${payments.size()==0}">
+                			<a href="/virtualstore/payment">Add Payment</a>
+                	</c:if>
  
                 <p>Note: Please make sure your details are correct before submitting form and that all fields marked with * are completed!.</p>
             </form>

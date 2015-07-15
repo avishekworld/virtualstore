@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -26,6 +27,7 @@ import edu.mum.customer.domain.PaymentInfo;
 import edu.mum.customer.domain.User;
 import edu.mum.customer.domain.UserProfile;
 import edu.mum.customer.service.IUserService;
+import edu.mum.product.domain.Order;
 
 
 @Controller
@@ -79,6 +81,7 @@ public class CustomerController {
 		return "/login";
 	}
 	
+	
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public String login( Model model, @RequestParam("username") String username,  
 					@RequestParam("password") String password, HttpServletRequest request) {
@@ -105,13 +108,19 @@ public class CustomerController {
 			return "login";
 		}
 		
+		//If session is set then change the user
+		
 		return "redirect:/home";
 	}
 	
 	@RequestMapping(value="/profile", method=RequestMethod.GET)
-	public String userProfile( HttpServletRequest request) {
+	public String userProfile( Model model, HttpServletRequest request) {
 
 		if( request.getSession().getAttribute("islogged") != null &&  request.getSession().getAttribute("islogged").equals("true")){
+			UserProfile userProfile=(UserProfile) request.getSession().getAttribute("userProfile");
+			User user=userProfile.getUser();
+			List<Order> allOrders=userService.getAllOrder(user);
+			model.addAttribute("allOrders", allOrders);
 			return "profile";
 		}
 
@@ -163,6 +172,17 @@ public class CustomerController {
 		
 		model.addAttribute("message", "Payment Status : "+paymentResponse.getPaymentSucess()+" - "+paymentResponse.getMessage());
 		
+		if(paymentResponse.isCompleted())
+		{
+			Order order=(Order) request.getSession().getAttribute("order");
+			order.setUser(userProfile.getUser());
+			
+			request.getSession().removeAttribute("order");
+			request.getSession().removeAttribute("subtotatl");
+			
+			userService.recordOrder(order);
+			
+		}
         return "checkout";
     }
 	

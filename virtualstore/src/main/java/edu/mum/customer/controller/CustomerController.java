@@ -43,11 +43,12 @@ public class CustomerController {
     }
 	
 	@RequestMapping(value="/registration", method=RequestMethod.POST)
-	public String add(User user, UserProfile userProfile,Address billingAddress,Address shippingAddress) {
+	public String add(Model model, User user, UserProfile userProfile,Address billingAddress,Address shippingAddress) {
 		
 		userProfile.setBillingAddress(billingAddress);
 		userProfile.setShippingAddress(shippingAddress);
 		userService.registerUser(user, userProfile,RoleType.ROLE_USER);
+		model.addAttribute("message", "User Registration Successful");
 		return "redirect:/login";
 	}
 	
@@ -82,6 +83,11 @@ public class CustomerController {
 					@RequestParam("password") String password, HttpServletRequest request) {
 					
 		User user = userService.getUserByUsername( username );
+		if(user==null)
+		{
+			model.addAttribute("message", "Login Failed");
+			return "login";
+		}
 		UserRole userRole = userService.getUserRole(user.getId());
 		
 		if ( user != null && user.getPassword().equals( password ) ) {
@@ -92,6 +98,7 @@ public class CustomerController {
 			request.getSession().setAttribute("userRole", userRole);
 			
 		}else{
+			model.addAttribute("message", "Login Failed");
 			return "login";
 		}
 		
@@ -113,6 +120,7 @@ public class CustomerController {
 		
 		request.getSession().removeAttribute("islogged");
 		request.getSession().invalidate();
+		
 		return "redirect:/login";
 	}
 	
@@ -160,7 +168,7 @@ public class CustomerController {
     }
 	
 	@RequestMapping(value="/payment", method=RequestMethod.POST)
-	public String addPayment(@RequestParam("cardNumber") String cardNumber,@RequestParam("paymentName") String paymentName,@RequestParam("expireDate") String expireDate,HttpServletRequest request) {
+	public String addPayment(Model model, @RequestParam("cardNumber") String cardNumber,@RequestParam("paymentName") String paymentName,@RequestParam("expireDate") String expireDate,HttpServletRequest request) {
 		
 		//UserProfile userProfile=(UserProfile) request.getSession().getAttribute("userprofile");
 		
@@ -194,6 +202,8 @@ public class CustomerController {
 		paymentInfo.setPayType(PayType.CREDIT_CARD);
 		
 		userService.addPayment(paymentInfo);
+		
+		model.addAttribute("message", "Payement Added Sucessfully");
 		
 		return "addpayment";
 	}

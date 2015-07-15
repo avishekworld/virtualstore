@@ -30,6 +30,7 @@
 			<td><p>${ userProfile.phone}</p></td>
 		</tr>
 	</table>
+	<a href="/virtualstore/payment">Add Payment</a>
 	<%
 	
 	UserRole userRole=(UserRole)request.getSession().getAttribute("userRole");

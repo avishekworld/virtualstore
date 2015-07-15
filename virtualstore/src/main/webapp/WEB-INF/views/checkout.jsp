@@ -25,7 +25,7 @@
         </style>
     </head>
     <body>
-    	<center><font size="12" color="green">${message}</font></center>
+    	
         <div id="container">
         
         <form action="checkout" method="post"  >
@@ -33,7 +33,7 @@
                 <h1>Select Payment</h1>
                 
 
-                <div class="line">Amount: <input type="text" id="name" name="amount" value ="100" /></div>
+                <div class="line">Amount: <input type="text" id="name" name="amount" value ="${subtotatl}" /></div>
                 <div class="line">Payment *: 
 					<select  name = "paymentId" >
 					

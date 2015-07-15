@@ -26,6 +26,7 @@ public interface IProductDao {
 	public  List<Catagory> getCategories();
 	public  Catagory getCategory(int catagoryId);
 	public ProductJsonObject loadLatestProduct(int newProductId);
+	public void updateProduct(Product product);
 
 
 

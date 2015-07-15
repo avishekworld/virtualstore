@@ -275,7 +275,7 @@ public class ProductController {
     }
 	
 	@RequestMapping(value="/product", method=RequestMethod.POST)
-	public String add(Product product, @RequestParam("catagoryId") int catagoryId, @RequestParam("quantity") int quantity,@RequestParam("file") MultipartFile file,MultipartHttpServletRequest request) {
+	public String add(Model model, Product product, @RequestParam("catagoryId") int catagoryId, @RequestParam("quantity") int quantity,@RequestParam("file") MultipartFile file,MultipartHttpServletRequest request) {
 		
 		String fileName=null;
 
@@ -310,7 +310,29 @@ public class ProductController {
 		
 		productService.registerProduct(product, catagoryId,quantity,fileName);
 		
+		model.addAttribute("message", "Product Created ");
+		
 		return "redirect:/product";
+	}
+	
+	@RequestMapping(value="/product/{id}", method=RequestMethod.GET)
+	public String get( Model model, @PathVariable("id") long productId) {
+		model.addAttribute("product", productService.getProduct(productId));
+		return "productupdate";
+	}
+	
+	@RequestMapping(value="/product/{id}", method=RequestMethod.POST)
+	public String update(Model model, Product product,@PathVariable("id") long productId) {
+		
+		Product updateProduct=productService.getProduct(productId);
+		updateProduct.setName(product.getName());
+		updateProduct.setPrice(product.getPrice());
+		
+		productService.modifyProduct(updateProduct); // car.id already set by binding
+		
+		model.addAttribute("message", "Product Updated");
+		
+		return "productupdate";
 	}
 	
 	

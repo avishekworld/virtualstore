@@ -50,3 +50,4 @@
 </div>
 </section>
 <div style="clear: both;"></div>
+<center><font size="12" color="green">${message}</font></center>

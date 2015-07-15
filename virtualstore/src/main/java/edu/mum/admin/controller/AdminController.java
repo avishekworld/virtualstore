@@ -58,10 +58,12 @@ public class AdminController {
     }
 	
 	@RequestMapping(value="/category", method=RequestMethod.POST)
-	public String addCategory( Catagory category) {
+	public String addCategory(Model model, Catagory category) {
 		
 		
 		adminService.registerCategory(category);
+		
+		model.addAttribute("message", "Category Added");
 		
 		return "redirect:/category";
 	}

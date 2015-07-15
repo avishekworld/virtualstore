@@ -23,6 +23,7 @@ public interface IProductService {
 	public void registerProduct(Product product, int catagoryId,int quantity,String fileName);
 	public  List<Catagory> getProductCategories();
 	public ProductJsonObject getLatesProduct(int newProductId);
+	public void modifyProduct(Product product) ;
 	
 
 

@@ -36,13 +36,14 @@
 </section>
 
 <section class="newAddress">
-	<form action="registration" method="post">
+	<form action="checkout" method="get">
 	New Address<br />
     <div class="line"><label for="lineOne">Line one *: </label><input type="text" id="lineOne" name="lineOne" value = "141 4th st." /></div>
     <div class="line"><label for="lineTwo">Line Two *: </label><input type="text" id="lineTwo" name="lineTwo" value = "N/A" /></div>
     <div class="line"><label for="state">State *: </label><input type="text" id="state" name="state" value = "North Carolina." /></div>
-    <div class="line"><label for="zipCode">zip code *: </label><input type="text" id="zipcode" name="zipCode" value = "53242" /></div>
-    <input type="submit" value="Ship To This Address" />
+    <div class="line"><label for="zipCode">Zip code *: </label><input type="text" id="zipcode" name="zipCode" value = "53242" /></div>
+    <input type="hidden" name="amount" value="${subtotatl}" />
+    <input type="submit" value="Proceed For Payment" />
     </form>
 </section>
 
